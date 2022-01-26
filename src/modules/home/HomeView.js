@@ -2,7 +2,7 @@ import React from 'react'
 import { View, ScrollView } from 'react-native'
 import { Box, Text } from '../../components'
 
-import NovelList from '../novel/NovelList'
+import ChapterList from '../novel/ChapterList'
 import FeaturedNovels from '../novel/FeaturedNovels'
 
 const HomeView = (props) => {
@@ -25,7 +25,7 @@ const HomeView = (props) => {
 
                 <FeaturedNovels />
 
-                <NovelList 
+                <ChapterList 
                     onNovelPressed={onNovelPressed}
                 />
             </ScrollView>
