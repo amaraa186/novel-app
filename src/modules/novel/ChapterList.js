@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { FlatList } from 'react-native'
 import { Box, Text } from '../../components'
 
-import NovelItem from './NovelItem'
+import ChapterItem from './ChapterItem'
 
-const NovelList = (props) => {
+const ChapterList = (props) => {
     const [fetching, setFetching] = useState(false)
     const [novels, setNovels] = useState([])
 
@@ -70,7 +70,7 @@ const NovelList = (props) => {
 
     const renderNovel = ({ item }) => {
         return (
-            <NovelItem 
+            <ChapterItem 
                 novel={item}
                 onPress={props.onNovelPressed}
             />  
@@ -100,4 +100,4 @@ const NovelList = (props) => {
     )
 }
 
-export default NovelList
+export default ChapterList

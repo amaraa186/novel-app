@@ -2,7 +2,7 @@ import React from 'react'
 import { Image, View, TouchableOpacity } from 'react-native'
 import { Box, Text } from '../../components'
 
-const NovelItem = (props) => {
+const ChapterItem = (props) => {
     const { novel, onPress = () => {} } = props
 
     return (
@@ -11,7 +11,7 @@ const NovelItem = (props) => {
                 <Box height={200} bR={20}>
                     <Image 
                         source={{
-                            uri: novel.cover_url
+                            uri: novel.cover_url,
                         }}
                         style={{
                             flex: 1,
@@ -44,4 +44,4 @@ const NovelItem = (props) => {
     )
 }
 
-export default NovelItem
+export default ChapterItem

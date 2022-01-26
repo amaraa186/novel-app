@@ -24,13 +24,13 @@ const FeaturedNovels = () => {
             _id: "123",
             title: "Хуйларч буй луу",
             chapter: "19",
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
+            cover_url: "https://img.webnovel.com/bookcover/11393724706348705/300/300.jpg?updateTime=1560741316485",
             duration: 15
         }, {
             _id: "123",
             title: "Хуйларч буй луу",
             chapter: "19",
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
+            cover_url: "https://img.webnovel.com/bookcover/11393724706348705/300/300.jpg?updateTime=1560741316485",
             duration: 15
         }]
 
