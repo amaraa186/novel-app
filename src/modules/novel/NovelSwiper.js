@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image } from 'react-native'
+import { Image, TouchableOpacity } from 'react-native'
 import { Box } from '../../components'
 
 const NovelSwiper = (props) => {
@@ -7,17 +7,19 @@ const NovelSwiper = (props) => {
 
     return (
         <Box height={200} bR={20} pX={8}>
-            <Image 
-                source={{
-                    uri: novel.cover_url,
-                }}
-                style={{
-                    borderRadius: 20,
-                    flex: 1,
-                    width: null,
-                    height: null,
-                }}
-            />
+            <TouchableOpacity style={{flex: 1}}>
+                <Image 
+                    source={{
+                        uri: novel.cover_url,
+                    }}
+                    style={{
+                        borderRadius: 20,
+                        flex: 1,
+                        width: null,
+                        height: null,
+                    }}
+                />
+            </TouchableOpacity>
         </Box>
     )
 }

@@ -23,14 +23,12 @@ const FeaturedNovels = () => {
         let novels = [{
             _id: "123",
             title: "Хуйларч буй луу",
-            chapter: "19",
-            cover_url: "https://img.webnovel.com/bookcover/11393724706348705/300/300.jpg?updateTime=1560741316485",
+            cover_url: "https://cutewallpaper.org/21/wuxia-wallpaper/Pin-by-Deathblade-on-Xianxia,-wuxia,-martial-arts-and-.jpg",
             duration: 15
         }, {
             _id: "123",
             title: "Хуйларч буй луу",
-            chapter: "19",
-            cover_url: "https://img.webnovel.com/bookcover/11393724706348705/300/300.jpg?updateTime=1560741316485",
+            cover_url: "https://cutewallpaper.org/21/wuxia-wallpaper/Chinese-xianxia-wuxia-landscape-painting-in-2019-Fantasy-.jpg",
             duration: 15
         }]
 

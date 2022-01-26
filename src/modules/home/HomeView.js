@@ -5,15 +5,22 @@ import { Box, Text } from '../../components'
 import ChapterList from '../novel/ChapterList'
 import FeaturedNovels from '../novel/FeaturedNovels'
 
+import NovelSwiperList from '../novel/NovelSwiperList'
+
 const HomeView = (props) => {
+
     const { navigation } = props
 
-    const onNovelPressed = () => {
+    const onchapterPressed = () => {
         navigation.navigate('ChapterDetail')
     }
 
+    const onNovelPressed = () => {
+        navigation.navigate('NovelDetail')
+    }
+
     return (
-        <Box flex={1} bg='white' insetsTop>
+        <Box flex={1} bg='white' insetsTop pX={10}>
             <ScrollView contentContainerStyle={{
                 paddingBottom: 60
             }}>
@@ -25,8 +32,12 @@ const HomeView = (props) => {
 
                 <FeaturedNovels />
 
-                <ChapterList 
+                <NovelSwiperList
                     onNovelPressed={onNovelPressed}
+                />
+
+                <ChapterList 
+                    onchapterPressed={onchapterPressed}
                 />
             </ScrollView>
         </Box>

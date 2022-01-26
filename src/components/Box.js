@@ -67,7 +67,7 @@ const Box = (props) => {
 			// case 'yellow': return colors.colorYellow
 			// case 'purple': return colors.colorPurple
 			// case 'green': return colors.colorGreen
-			// case 'gray': return colors.colorGray
+			case 'gray': return '#d3d3d3'
 			// case 'mediumgray': return colors.bgGray
 			// case 'blue': return colors.colorSecondary
 			case 'black': return '#272428'

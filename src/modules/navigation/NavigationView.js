@@ -12,6 +12,8 @@ import BookmarkView from '../bookmark/BookmarkView'
 
 import ChapterDetail from '../novel/ChapterDetail';
 
+import NovelDetail from '../novel/NovelDetail'
+
 const TabView = () => {
     return (
         <Tab.Navigator initialRouteName='Home'>
@@ -30,6 +32,7 @@ const NavigationView = () => {
             >
                 <Stack.Screen name="Home" component={TabView} options={{ headerShown: false }} />
                 <Stack.Screen name="ChapterDetail" component={ChapterDetail} options={{ headerShown: false }}/>
+                <Stack.Screen name="NovelDetail" component={NovelDetail} options={{ headerShown: false }}/>
             </Stack.Navigator>
         </NavigationContainer>
     )
