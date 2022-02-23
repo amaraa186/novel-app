@@ -75,7 +75,7 @@ const NovelDetail = (props) => {
                             <Text align='center' color='gray'>{novel.rating}</Text>
                         </Box>
                     </Box>
-                    <Box direction='row' pY={12} pX={16} flex={1} wrap>
+                    <Box direction='row' pY={12} pX={16}>
                         {
                             novel.tags.map(tag => (
                                 <Box pY={6} pX={6} bg='waterBlue' bR={5}>
