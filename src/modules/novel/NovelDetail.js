@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, Image, TouchableOpacity } from 'react-native'
+import { ScrollView, Image, TouchableOpacity, Button } from 'react-native'
 import { Box, Text } from '../../components'
 
 const NovelDetail = (props) => {
@@ -75,16 +75,34 @@ const NovelDetail = (props) => {
                             <Text align='center' color='gray'>{novel.rating}</Text>
                         </Box>
                     </Box>
-                    <Box direction='row' pY={12} pX={16}>
+                    <Box direction='row' pY={12} pX={12} flex={1} style={{ flexWrap: 'wrap' }}>
                         {
                             novel.tags.map(tag => (
-                                <Box pY={6} pX={6} bg='waterBlue' bR={5}>
-                                    <Text align='center'>
-                                        {tag.title}
-                                    </Text>
+                                <Box pY={3} pX={3}>
+                                    <TouchableOpacity>
+                                        <Box pY={5} pX={5} bg='waterBlue' bR={5}>
+                                            <Text size={12} align='center'>
+                                                {tag.title}
+                                            </Text>
+                                        </Box>
+                                    </TouchableOpacity>
                                 </Box>
                             ))
                         }
+                    </Box>
+                    <Box pX={12}>
+                        <Text h2>Тайлбар</Text>
+                        <Text align='justify'>{novel.description}</Text>
+                    </Box>
+                    {/* <Box align='center' pY={12}>
+                        <Button title='Унших'  />
+                    </Box> */}
+                    <Box pY={12} pX={12}>
+                        <TouchableOpacity>
+                            <Box bg='blue' pY={12} pX={12}>
+                                <Text align='center' color='white'>Унших</Text>
+                            </Box>
+                        </TouchableOpacity>
                     </Box>
                 </Box>
             </ScrollView>
