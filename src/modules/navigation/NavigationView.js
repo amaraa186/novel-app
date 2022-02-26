@@ -18,13 +18,13 @@ import NovelDetail from '../novel/NovelDetail'
 const TabView = () => {
     return (
         <Tab.Navigator initialRouteName='Home'>
-            <Tab.Screen name="Search" component={SearchView} options={{ headerShown: false, tabBarLabel: "Search", tabBarIcon: ({color, size}) => (
+            <Tab.Screen name="Search" component={SearchView} options={{ headerShown: false, tabBarLabel: "Хайлт", tabBarIcon: ({color, size}) => (
                 <MaterialCommunityIcons name="search" color={color} size={size} /> 
             ) }} />
-            <Tab.Screen name="Home" component={HomeView} options={{ headerShown: false, tabBarLabel: "Home", tabBarIcon: ({color, size}) => (
+            <Tab.Screen name="Home" component={HomeView} options={{ headerShown: false, tabBarLabel: "Нүүр", tabBarIcon: ({color, size}) => (
                 <MaterialCommunityIcons name="home" color={color} size={size} /> 
             ) }} />
-            <Tab.Screen name="Bookmark" component={BookmarkView} options={{ headerShown: false, tabBarLabel: "Bookmark", tabBarIcon: ({color, size}) => (
+            <Tab.Screen name="Bookmark" component={BookmarkView} options={{ headerShown: false, tabBarLabel: "Номын сан", tabBarIcon: ({color, size}) => (
                 <MaterialCommunityIcons name="bookmark" color={color} size={size} /> 
             ) }}/>
         </Tab.Navigator>

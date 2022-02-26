@@ -66,6 +66,7 @@ const Box = (props) => {
 			case 'red': return '#ED6E69'
 			case 'waterBlue': return '#DEE2FF'
 			case 'blue' : return '#5B6CD8'
+			case 'transBlack' : return '#484848ad'
 			// case 'yellow': return colors.colorYellow
 			// case 'purple': return colors.colorPurple
 			// case 'green': return colors.colorGreen
