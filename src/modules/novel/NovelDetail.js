@@ -22,7 +22,9 @@ const NovelDetail = (props) => {
             title: 'Домгийн'
         }, {
             title: 'Домгийн'
-        }]
+        }, {
+            title: 'Уран зөгнөлт'
+        },]
     }
 
     const onBack = () => props.navigation.goBack()
@@ -32,13 +34,9 @@ const NovelDetail = (props) => {
             <ScrollView contentContainerStyle={{
                     padding: 10
                 }}>
-                <Box direction='row' jc='between' pY={8}>
+                <Box direction='row' jc='around' pY={4}>
                     <TouchableOpacity onPress={onBack}>
                         <Text h2>{'<'}</Text>
-                    </TouchableOpacity>
-                    <Text h2>Дэлгэрэнгүй</Text>
-                    <TouchableOpacity>
-                        <Text>X</Text>
                     </TouchableOpacity>
                 </Box>
                 <Box>
