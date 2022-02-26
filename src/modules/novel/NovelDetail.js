@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ScrollView, Image, TouchableOpacity, Button } from 'react-native'
 import { Box, Text } from '../../components'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 
 const NovelDetail = (props) => {
 
@@ -34,9 +35,9 @@ const NovelDetail = (props) => {
             <ScrollView contentContainerStyle={{
                     padding: 10
                 }}>
-                <Box direction='row' jc='around' pY={4}>
+                <Box pY={4}>
                     <TouchableOpacity onPress={onBack}>
-                        <Text h2>{'<'}</Text>
+                        <MaterialCommunityIcons name='chevron-left' size={30} color='black'/>
                     </TouchableOpacity>
                 </Box>
                 <Box>
@@ -59,7 +60,7 @@ const NovelDetail = (props) => {
                             <Text color='gray' font='bold'>ЗОХИОЛЧ: {novel.author.toUpperCase()}</Text>
                         </Box>
                     </Box>
-                    <Box direction='row' jc='between' pX={16} pY={12} shadow>
+                    <Box direction='row' jc='between' pX={16} pY={12}>
                         <Box>
                             <Text align='center' font='bold'>Гарч эхэлсэн</Text>
                             <Text align='center' color='gray'>{novel.started}</Text>

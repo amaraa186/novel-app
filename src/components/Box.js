@@ -74,6 +74,7 @@ const Box = (props) => {
 			// case 'mediumgray': return colors.bgGray
 			// case 'blue': return colors.colorSecondary
 			case 'black': return '#272428'
+			case 'dark' : return '#212129'
 			// case 'medium': return 'rgba(140, 140, 140, 0.5)'
 			// case "opacred": return 'rgba(239,74,75, 0.2)'
 			// case "footer": return '#272428'
