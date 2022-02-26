@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { ScrollView, View, TouchableOpacity, DrawerLayoutAndroid } from 'react-native'
-import { Box, Text } from '../../components'
+import { Box, Text } from '../../../components'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 
 const ChapterDetail = (props) => {

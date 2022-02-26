@@ -71,7 +71,10 @@ const NovelSwiperList = (props) => {
     return (
         <Box flex={1}>
             <Box direction="row" pX={8} pY={15} jc='between' align='center'>
-                <Text h2>Санал болгох зохиолууд</Text>
+                <Text h2>Санал болгох</Text>
+                <TouchableOpacity onPress={props.onNovelListPressed}>
+                    <Text h4 color='gray'>Бүгдэнг нь үзэх</Text>
+                </TouchableOpacity>
             </Box>
             <FlatList 
                 horizontal

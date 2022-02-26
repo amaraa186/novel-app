@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image, View, TouchableOpacity } from 'react-native'
-import { Box, Text } from '../../components'
+import { Box, Text } from '../../../components'
 
 const ChapterItem = (props) => {
     const { novel, onPress = () => {} } = props
@@ -24,7 +24,7 @@ const ChapterItem = (props) => {
                     </Box>
                     <Box pX={10} pY={10} flex={1}>
                         <Box>
-                            <Text color='gray'>Уншигдах хугацаа: {novel.duration}</Text>
+                            <Text color='gray'>Уншигдах хугацаа: {novel.duration} мин</Text>
                         </Box>
                         <Box mT={12}>
                             <Text font='bold'>{novel.title}</Text>

@@ -10,9 +10,9 @@ const Stack = createStackNavigator()
 import HomeView from '../home/HomeView'
 import SearchView from '../search/SearchView'
 import BookmarkView from '../bookmark/BookmarkView'
-
-import ChapterDetail from '../novel/ChapterDetail';
-
+import AllChapter from '../novel/AllChapter'
+import ChapterDetail from '../novel/chapter/ChapterDetail';
+import NovelList from '../novel/NovelList'
 import NovelDetail from '../novel/NovelDetail'
 
 const TabView = () => {
@@ -40,6 +40,8 @@ const NavigationView = () => {
                 <Stack.Screen name="Home" component={TabView} options={{ headerShown: false }} />
                 <Stack.Screen name="ChapterDetail" component={ChapterDetail} options={{ headerShown: false }}/>
                 <Stack.Screen name="NovelDetail" component={NovelDetail} options={{ headerShown: false }}/>
+                <Stack.Screen name="AllChapter" component={AllChapter} options={{ headerShown: false }}/>
+                <Stack.Screen name="NovelList" component={NovelList} options={{ headerShown: false }}/>
             </Stack.Navigator>
         </NavigationContainer>
     )

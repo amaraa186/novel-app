@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native'
-import { Box, Text } from '../../components'
+import { Box, Text } from '../../../components'
 
 import ChapterItem from './ChapterItem'
 
@@ -85,6 +85,10 @@ const ChapterList = (props) => {
         )
     }
 
+    const onClick = () => {
+        
+    }
+
     return (
         <Box flex={1}>
             <Box direction="row" pX={8} pY={15} jc='between' align='center'>
@@ -92,7 +96,7 @@ const ChapterList = (props) => {
                     <Text h2>Сүүлд нэмэгдсэн</Text>
                 </Box>
                 <Box>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => onClick()}>
                         <Text h4 color='gray'>Бүгдэнг нь үзэх</Text>
                     </TouchableOpacity>
                 </Box>

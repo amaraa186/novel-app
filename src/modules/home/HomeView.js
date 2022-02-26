@@ -2,7 +2,7 @@ import React from 'react'
 import { View, ScrollView } from 'react-native'
 import { Box, Text } from '../../components'
 
-import ChapterList from '../novel/ChapterList'
+import ChapterList from '../novel/chapter/ChapterList'
 import FeaturedNovels from '../novel/FeaturedNovels'
 
 import NovelSwiperList from '../novel/NovelSwiperList'
@@ -17,6 +17,14 @@ const HomeView = (props) => {
 
     const onNovelPressed = () => {
         navigation.navigate('NovelDetail')
+    }
+
+    const onNovelList = () => {
+        navigation.navigate('NovelList')
+    }
+
+    const onChapterList = () => {
+        navigation.navigate('AllChapter')
     }
 
     return (
@@ -34,6 +42,7 @@ const HomeView = (props) => {
 
                 <NovelSwiperList
                     onNovelPressed={onNovelPressed}
+                    onNovelListPressed={onNovelList}
                 />
 
                 <ChapterList 
