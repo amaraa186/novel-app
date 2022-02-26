@@ -48,7 +48,7 @@ const ChapterDetail = (props) => {
                             </Box>
                         </Box>
                     </Box>
-                    <Box bg='black' height={80} pX={20} pY={8} direction='row'>
+                    <Box bg='black' height={70} pX={20} pY={8} direction='row'>
                         <Box flex={1} direction='row'>
                             <Box pA={10} bg='white' height={40}>
                                 <Text font='bold'>19/40</Text>
