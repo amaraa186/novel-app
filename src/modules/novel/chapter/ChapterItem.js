@@ -22,7 +22,7 @@ const ChapterItem = (props) => {
                             }}
                         />
                     </Box>
-                    <Box pX={10} pY={10} flex={1}>
+                    <Box pX={10} pY={6} flex={1}>
                         <Box>
                             <Text color='gray'>Уншигдах хугацаа: {novel.duration} мин</Text>
                         </Box>
@@ -32,7 +32,7 @@ const ChapterItem = (props) => {
                         <Box mT={4}>
                             <Text color='gray'>Бүлэг {novel.chapter}</Text>
                         </Box>
-                        <Box pY={10} mT={5}>
+                        <Box pY={6}>
                             <Box>
                                 <Text align='right'>{novel.progress}%</Text>
                             </Box>

@@ -85,10 +85,6 @@ const ChapterList = (props) => {
         )
     }
 
-    const onClick = () => {
-        
-    }
-
     return (
         <Box flex={1}>
             <Box direction="row" pX={8} pY={15} jc='between' align='center'>
@@ -96,7 +92,7 @@ const ChapterList = (props) => {
                     <Text h2>Сүүлд нэмэгдсэн</Text>
                 </Box>
                 <Box>
-                    <TouchableOpacity onPress={() => onClick()}>
+                    <TouchableOpacity onPress={props.onNovelListPressed}>
                         <Text h4 color='gray'>Бүгдэнг нь үзэх</Text>
                     </TouchableOpacity>
                 </Box>

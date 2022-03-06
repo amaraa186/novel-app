@@ -4,7 +4,7 @@ import { View, useWindowDimensions } from 'react-native';
 import { Box } from '../../components'
 import NovelSwiper from './NovelSwiper'
 
-const FeaturedNovels = () => {
+const FeaturedNovels = (props) => {
     const layout = useWindowDimensions();
 
     const [index, setIndex] = React.useState(0);
@@ -47,6 +47,7 @@ const FeaturedNovels = () => {
         return (
             <NovelSwiper 
                 novel={route.novel}
+                onPress={props.onNovelPressed}
             />
         )
     }

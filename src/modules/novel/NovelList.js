@@ -1,10 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Image, TouchableOpacity, ScrollView } from 'react-native'
+import { Picker } from '@react-native-picker/picker'
 import { Box } from '../../components'
 import NovelItem from './NovelItem'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 
 const NovelList = (props) => {
+    const [pickedCategory, setPickedCategory] = useState()
+    
     let novels = [{
         _id: "123",
         title: "Хуйларч буй луу",
@@ -47,13 +50,51 @@ const NovelList = (props) => {
         author: "I eat tomatoes"
     }]
 
+    let categories = [{
+        title: 'Адал явдал'
+    }, {
+        title: 'Адал явдал'
+    }, {
+        title: 'Адал явдал'
+    }, {
+        title: 'Адал явдал'
+    }, {
+        title: 'Адал явдал'
+    }, {
+        title: 'Адал явдал'
+    }, {
+        title: 'Адал явдал'
+    }, {
+        title: 'Адал явдал'
+    }, {
+        title: 'Адал явдал'
+    }, {
+        title: 'Адал явдал'
+    }, {
+        title: 'Адал явдал'
+    }, {
+        title: 'Адал явдал'
+    }]
+
     return (
-        <Box insetsTop mB={20}>
-            <Box pY={4} pX={4} direction='row'>
+        <Box mB={45}>
+            <Box pY={4} pX={4} direction='row' align='center'>
                 <TouchableOpacity onPress={props.navigation.goBack}>
                     <MaterialCommunityIcons name='chevron-left' size={30} color='black' />
                 </TouchableOpacity>
-                
+                <Box width={25} />
+                <Picker
+                    selectedValue={pickedCategory}
+                    style={{height: 40, width: 300}}
+                    onValueChange={(itemValue, itemIndex) => setPickedCategory(itemValue)}
+                >
+                    <Picker.Item label='Бүгд' value='ALL' />
+                    {
+                        categories.map((category, i) => (
+                            <Picker.Item label={category.title} value={category.title} />
+                        ))
+                    }
+                </Picker>
             </Box>
             <ScrollView contentContainerStyle={{
                 padding: 10

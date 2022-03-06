@@ -24,8 +24,8 @@ const NovelSwiperItem = (props) => {
                         />
                     </Box>
                 </Box>
-                <Box>
-                    <Text>{novel.title}</Text>
+                <Box style={{flexWrap: 'wrap'}}>
+                    <Text align='center'>{novel.title}</Text>
                 </Box>
             </TouchableOpacity>
         </Box>

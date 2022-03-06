@@ -23,10 +23,6 @@ const HomeView = (props) => {
         navigation.navigate('NovelList')
     }
 
-    const onChapterList = () => {
-        navigation.navigate('AllChapter')
-    }
-
     return (
         <Box flex={1} bg='white' insetsTop pX={10}>
             <ScrollView contentContainerStyle={{
@@ -38,7 +34,9 @@ const HomeView = (props) => {
                     </Box>
                 </Box>
 
-                <FeaturedNovels />
+                <FeaturedNovels 
+                    onNovelPressed={onNovelPressed}
+                />
 
                 <NovelSwiperList
                     onNovelPressed={onNovelPressed}
@@ -47,6 +45,7 @@ const HomeView = (props) => {
 
                 <ChapterList 
                     onchapterPressed={onchapterPressed}
+                    onNovelListPressed={onNovelList}
                 />
             </ScrollView>
         </Box>

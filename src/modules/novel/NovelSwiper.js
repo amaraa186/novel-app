@@ -3,11 +3,11 @@ import { Image, TouchableOpacity } from 'react-native'
 import { Box } from '../../components'
 
 const NovelSwiper = (props) => {
-    const { novel } = props
+    const { novel, onPress = () => {} } = props
 
     return (
         <Box height={200} bR={20} pX={8}>
-            <TouchableOpacity style={{flex: 1}}>
+            <TouchableOpacity style={{flex: 1}} onPress={onPress}>
                 <Image 
                     source={{
                         uri: novel.cover_url,
