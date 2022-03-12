@@ -8,7 +8,7 @@ const NovelSwiperItem = (props) => {
 
     return (
         <Box pX={5}>
-            <TouchableOpacity style={{ flex: 1 }} onPress={onPress}>
+            <TouchableOpacity style={{ flex: 1 }} onPress={() => onPress(novel._id)}>
                 <Box bR={20}>
                     <Box height={180} width={120}>
                         <Image 
@@ -24,8 +24,8 @@ const NovelSwiperItem = (props) => {
                         />
                     </Box>
                 </Box>
-                <Box style={{flexWrap: 'wrap'}}>
-                    <Text align='center'>{novel.title}</Text>
+                <Box width={120}>
+                    <Text align='center' >{novel.title}</Text>
                 </Box>
             </TouchableOpacity>
         </Box>

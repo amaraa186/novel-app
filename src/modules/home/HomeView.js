@@ -15,8 +15,10 @@ const HomeView = (props) => {
         navigation.navigate('ChapterDetail')
     }
 
-    const onNovelPressed = () => {
-        navigation.navigate('NovelDetail')
+    const onNovelPressed = (id) => {
+        navigation.navigate('NovelDetail', {
+            _id: id
+        })
     }
 
     const onNovelList = () => {

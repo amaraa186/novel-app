@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native'
 import { Box, Text } from '../../components'
+import { fetchNovels } from './NovelApi'
 
 import NovelSwiperItem from './NovelSwiperItem'
 
@@ -14,49 +15,12 @@ const NovelSwiperList = (props) => {
     }, [])
 
     const getNovels = () => {
-        let novels = [{
-            _id: "123",
-            title: "Хуйларч буй луу",
-            total_chapter: 19,
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-            duration: 300,
-            rating: 5.0,
-            author: "I eat tomatoes"
-        }, {
-            _id: "123",
-            title: "Хуйларч буй луу",
-            total_chapter: 19,
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-            duration: 300,
-            prating:  5.0,
-            author: "I eat tomatoes"
-        }, {
-            _id: "123",
-            title: "Хуйларч буй луу",
-            total_chapter: 19,
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-            duration: 300,
-            rating: 5.0,
-            author: "I eat tomatoes"
-        }, {
-            _id: "123",
-            title: "Хуйларч буй луу",
-            total_chapter: 19,
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-            duration: 300,
-            rating: 5.0,
-            author: "I eat tomatoes"
-        }, {
-            _id: "123",
-            title: "Хуйларч буй луу",
-            total_chapter: 19,
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-            duration: 300,
-            rating: 5.0,
-            author: "I eat tomatoes"
-        }]
-
-        setNovels(novels)
+        fetchNovels()
+        .then((res) => {
+            if(res.data.code == 0) {
+                setNovels(res.data.novels)
+            }
+        }).catch((err) => console.log(err))
     }
 
     const renderNovel = ({ item }) => {

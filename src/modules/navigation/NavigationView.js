@@ -36,7 +36,7 @@ const NavigationView = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="LoginPage"
+                initialRouteName="Home"
             >
                 <Stack.Screen name="Home" component={TabView} options={{ headerShown: false }} />
                 <Stack.Screen name="ChapterDetail" component={ChapterDetail} options={{ headerShown: false }}/>

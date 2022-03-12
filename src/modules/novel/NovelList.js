@@ -1,80 +1,42 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Image, TouchableOpacity, ScrollView } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import { Box } from '../../components'
 import NovelItem from './NovelItem'
+import { fetchNovels } from './NovelApi'
+import { fetchCategories } from './CategoryApi'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 
 const NovelList = (props) => {
     const [pickedCategory, setPickedCategory] = useState()
-    
-    let novels = [{
-        _id: "123",
-        title: "Хуйларч буй луу",
-        total_chapter: 19,
-        cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-        duration: 300,
-        rating: 5.0,
-        author: "I eat tomatoes"
-    }, {
-        _id: "123",
-        title: "Хуйларч буй луу",
-        total_chapter: 19,
-        cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-        duration: 300,
-        rating: 5.0,
-        author: "I eat tomatoes"
-    }, {
-        _id: "123",
-        title: "Хуйларч буй луу",
-        total_chapter: 19,
-        cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-        duration: 300,
-        rating: 5.0,
-        author: "I eat tomatoes"
-    }, {
-        _id: "123",
-        title: "Хуйларч буй луу",
-        total_chapter: 19,
-        cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-        duration: 300,
-        rating: 5.0,
-        author: "I eat tomatoes"
-    }, {
-        _id: "123",
-        title: "Хуйларч буй луу",
-        total_chapter: 19,
-        cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-        duration: 300,
-        rating: 5.0,
-        author: "I eat tomatoes"
-    }]
+    const [novels, setNovels] = useState([])
+    const [categories, setCategories] = useState([])
 
-    let categories = [{
-        title: 'Адал явдал'
-    }, {
-        title: 'Адал явдал'
-    }, {
-        title: 'Адал явдал'
-    }, {
-        title: 'Адал явдал'
-    }, {
-        title: 'Адал явдал'
-    }, {
-        title: 'Адал явдал'
-    }, {
-        title: 'Адал явдал'
-    }, {
-        title: 'Адал явдал'
-    }, {
-        title: 'Адал явдал'
-    }, {
-        title: 'Адал явдал'
-    }, {
-        title: 'Адал явдал'
-    }, {
-        title: 'Адал явдал'
-    }]
+    useEffect(() => {
+        getNovels()
+    }, [])
+
+    useEffect(() => {
+        getCategories()
+    }, [])
+
+    const getNovels = () => {
+        fetchNovels()
+        .then((res) => {
+            if(res.data.code == 0) {
+                setNovels(res.data.novels)
+            }
+        }).catch((err) => console.log(err))
+    }
+
+    const getCategories = () => {
+        fetchCategories()
+        .then((res) => {
+            if(res.data.code == 0) {
+                setCategories(res.data.categories)
+            }
+        }).catch((err) => console.log(err))
+    }
 
     return (
         <Box mB={45}>

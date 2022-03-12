@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image, View, TouchableOpacity } from 'react-native'
-import { Box, Text } from '../../../components'
+import { Box, Text } from '../../components'
 
 const ChapterItem = (props) => {
     const { novel, onPress = () => {} } = props

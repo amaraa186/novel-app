@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native'
-import { Box, Text } from '../../../components'
+import { Box, Text } from '../../components'
 
 import ChapterItem from './ChapterItem'
 

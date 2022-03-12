@@ -26,7 +26,7 @@ const NovelItem = (props) => {
                     </Box>
                     <Box pX={10} pY={10} flex={1}>
                         <Box direction='row' jc='between'>
-                            <Text color='gray'>{novel.total_chapter} бүлэг - {novel.duration} мин</Text>
+                            <Text color='gray'>{novel.total_chapter} бүлэг</Text>
                             <TouchableOpacity onPress={() => alert("AA")}>
                                 <MaterialCommunityIcons name='bookmark-outline' color='black' size={23} />
                             </TouchableOpacity>
