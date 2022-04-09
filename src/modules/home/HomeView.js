@@ -2,7 +2,7 @@ import React from 'react'
 import { View, ScrollView } from 'react-native'
 import { Box, Text } from '../../components'
 
-import ChapterList from '../novel/chapter/ChapterList'
+import ChapterList from '../chapter/ChapterList'
 import FeaturedNovels from '../novel/FeaturedNovels'
 
 import NovelSwiperList from '../novel/NovelSwiperList'

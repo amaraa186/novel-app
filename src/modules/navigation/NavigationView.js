@@ -10,7 +10,7 @@ const Stack = createStackNavigator()
 import HomeView from '../home/HomeView'
 import SearchView from '../search/SearchView'
 import BookmarkView from '../bookmark/BookmarkView'
-import ChapterDetail from '../novel/chapter/ChapterDetail';
+import ChapterDetail from '../chapter/ChapterDetail';
 import NovelList from '../novel/NovelList'
 import NovelDetail from '../novel/NovelDetail'
 import LoginPage from '../login/LoginPage';

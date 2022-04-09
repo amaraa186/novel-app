@@ -3,9 +3,10 @@ import { ScrollView, Image, TouchableOpacity, ActivityIndicator } from 'react-na
 import { Box, Text } from '../../components'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 import { fetchNovel } from './NovelApi';
+import _ from 'lodash'
 
 const NovelDetail = (props) => {
-    const [novel, setNovel] = useState()
+    const [novel, setNovel] = useState({})
     const [fetching, setFetching] = useState(false)
 
     const onBack = () => props.navigation.goBack()
@@ -21,11 +22,12 @@ const NovelDetail = (props) => {
         .then((res) => {
             if(res.data.code == 0){
                 setNovel(res.data.novel)
+                // alert(JSON.stringify(res.data.novel))
             }
         }).catch((err) => console.log(err))
         .then(() => setFetching(false))
     }
-    if(fetching == true){
+    if(fetching == true || _.isEmpty(novel)){
         return (
             <ActivityIndicator />
         )
@@ -63,7 +65,7 @@ const NovelDetail = (props) => {
                         <Box direction='row' jc='between' pX={16} pY={12}>
                             <Box>
                                 <Text align='center' font='bold'>Гарч эхэлсэн</Text>
-                                <Text align='center' color='gray'>{novel.started}</Text>
+                                <Text align='center' color='gray'>{novel.started_year}</Text>
                             </Box>
                             <Box>
                                 <Text align='center' font='bold'>Нийт бүлэг</Text>
