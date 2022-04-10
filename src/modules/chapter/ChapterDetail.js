@@ -1,13 +1,19 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { ScrollView, View, TouchableOpacity, DrawerLayoutAndroid } from 'react-native'
-import { Box, Text } from '../../../components'
+import { Box, Text } from '../../components'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
+const readingTime = require('reading-time');
 
 const ChapterDetail = (props) => {
     const drawer = useRef()
     const [fontSize, setFontSize] = useState(14)
     const [colorTheme, setColorTheme] = useState(true)
     const [colorText, setColorText] = useState(true)
+    const [readDetail, setReadDetail] = useState()
+
+    // useEffect(() => {
+    //     setReadDetail(readingTime(chapter.content))
+    // }, [])
 
     const onBack = () => props.navigation.goBack()
 
@@ -148,7 +154,7 @@ const ChapterDetail = (props) => {
                                 </Box>
                             </Box>
                         </Box>
-                        <Box bg='black' height={60} pX={20} pY={8} direction='row'>
+                        <Box bg='white' height={60} pX={20} pY={8} direction='row'>
                             <Box flex={1} direction='row'>
                                 <TouchableOpacity onPress={() => drawer.current.openDrawer()}>
                                     <Box pA={10} bg='white' height={40}>
@@ -168,6 +174,9 @@ const ChapterDetail = (props) => {
                                         }
                                     </Box>
                                 </TouchableOpacity>
+                            </Box>
+                            <Box>
+                                <Text>{readDetail.text}</Text>
                             </Box>
                             <Box direction='row' jc='end'>
                                 <TouchableOpacity onPress={() => setFontSize(fontSize / 1.2)}>
