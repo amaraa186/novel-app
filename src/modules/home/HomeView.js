@@ -11,8 +11,10 @@ const HomeView = (props) => {
 
     const { navigation } = props
 
-    const onchapterPressed = () => {
-        navigation.navigate('ChapterDetail')
+    const onchapterPressed = (id) => {
+        navigation.navigate('ChapterDetail', {
+            _id: id
+        })
     }
 
     const onNovelPressed = (id) => {

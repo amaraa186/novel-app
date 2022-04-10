@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native'
 import { Box, Text } from '../../components'
-import { fetchNovels } from './NovelApi'
+import { fetchPopularNovels } from './NovelApi'
 
 import NovelSwiperItem from './NovelSwiperItem'
 
@@ -15,7 +15,7 @@ const NovelSwiperList = (props) => {
     }, [])
 
     const getNovels = () => {
-        fetchNovels()
+        fetchPopularNovels()
         .then((res) => {
             if(res.data.code == 0) {
                 setNovels(res.data.novels)

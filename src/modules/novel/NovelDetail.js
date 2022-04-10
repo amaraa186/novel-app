@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { ScrollView, Image, TouchableOpacity, ActivityIndicator, View, AsyncStorage } from 'react-native'
 import { Box, Text } from '../../components'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 import { fetchNovel } from './NovelApi';
+import _ from 'lodash'
 
 const NovelDetail = (props) => {
-    const [novel, setNovel] = useState()
+    const [novel, setNovel] = useState({})
     const [fetching, setFetching] = useState(false)
 
     const onBack = () => props.navigation.goBack()
@@ -21,53 +22,61 @@ const NovelDetail = (props) => {
         .then((res) => {
             if(res.data.code == 0){
                 setNovel(res.data.novel)
+                // alert(JSON.stringify(res.data.novel))
             }
         }).catch((err) => console.log(err))
         .then(() => setFetching(false))
     }
-
-    return (
-        <Box>
-            <ScrollView contentContainerStyle={{
-                    padding: 10
-                }}>
-                <Box pY={4}>
-                    <TouchableOpacity onPress={onBack}>
-                        <MaterialCommunityIcons name='chevron-left' size={30} color='black'/>
-                    </TouchableOpacity>
-                </Box>
-                <Box>
-                    <Box pY={8} align='center'>
-                        <Box height={250} width={170}>
-                            <Image 
-                                source={{
-                                    uri: novel.cover_url
-                                }}
-                                style={{
-                                    flex: 1,
-                                    width: null,
-                                    height: null,
-                                    borderRadius: 10
-                                }}
-                            />
-                        </Box>
-                        <Box pY={12} align='center'>
-                            <Text h2 font='bold'>{novel.title}</Text>
-                            <Text color='gray' font='bold'>ЗОХИОЛЧ: {novel.author.toUpperCase()}</Text>
-                        </Box>
+    if(fetching == true || _.isEmpty(novel)){
+        return (
+            <View style={{alignContent: 'center', justifyContent: 'center', flex: 1}}>
+                <ActivityIndicator />
+            </View>
+        )
+    } else {
+        return (
+            <Box>
+                <ScrollView contentContainerStyle={{
+                        padding: 10
+                    }}>
+                    <Box pY={4}>
+                        <TouchableOpacity onPress={onBack}>
+                            <MaterialCommunityIcons name='chevron-left' size={30} color='black'/>
+                        </TouchableOpacity>
                     </Box>
-                    <Box direction='row' jc='between' pX={16} pY={12}>
-                        <Box>
-                            <Text align='center' font='bold'>Гарч эхэлсэн</Text>
-                            <Text align='center' color='gray'>{novel.started}</Text>
+                    <Box>
+                        <Box pY={8} align='center'>
+                            <Box height={250} width={170}>
+                                <Image 
+                                    source={{
+                                        uri: novel.cover_url
+                                    }}
+                                    style={{
+                                        flex: 1,
+                                        width: null,
+                                        height: null,
+                                        borderRadius: 10
+                                    }}
+                                />
+                            </Box>
+                            <Box pY={12} align='center'>
+                                <Text h2 font='bold'>{novel.title}</Text>
+                                <Text color='gray' font='bold'>ЗОХИОЛЧ: {novel.author.toUpperCase()}</Text>
+                            </Box>
                         </Box>
-                        <Box>
-                            <Text align='center' font='bold'>Нийт бүлэг</Text>
-                            <Text align='center' color='gray'>{novel.total_chapter}</Text>
-                        </Box>
-                        <Box>
-                            <Text align='center' font='bold'>Үнэлгээ</Text>
-                            <Text align='center' color='gray'>{novel.rating}</Text>
+                        <Box direction='row' jc='between' pX={16} pY={12}>
+                            <Box>
+                                <Text align='center' font='bold'>Гарч эхэлсэн</Text>
+                                <Text align='center' color='gray'>{novel.started_year}</Text>
+                            </Box>
+                            <Box>
+                                <Text align='center' font='bold'>Нийт бүлэг</Text>
+                                <Text align='center' color='gray'>{novel.total_chapter}</Text>
+                            </Box>
+                            <Box>
+                                <Text align='center' font='bold'>Үнэлгээ</Text>
+                                <Text align='center' color='gray'>{novel.rating}</Text>
+                            </Box>
                         </Box>
                     </Box>
                     <Box direction='row' pY={12} pX={12} flex={1} style={{ flexWrap: 'wrap' }}>
@@ -96,10 +105,10 @@ const NovelDetail = (props) => {
                             </Box>
                         </TouchableOpacity>
                     </Box>
-                </Box>
-            </ScrollView>
-        </Box>
-    )
+                </ScrollView>
+            </Box>
+        )
+    }
 }
 
 export default NovelDetail

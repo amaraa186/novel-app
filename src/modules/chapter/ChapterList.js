@@ -1,85 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native'
 import { Box, Text } from '../../components'
+import { fetchRecentlyChapters } from "./ChapterApi"
 
 import ChapterItem from './ChapterItem'
 
 const ChapterList = (props) => {
     const [fetching, setFetching] = useState(false)
-    const [novels, setNovels] = useState([])
-
-    const [filter, setFilter] = useState('recent') //popular
+    const [chapters, setChapters] = useState([])
 
     useEffect(() => {
-        getNovels()
+        getChapters()
     }, [])
 
-    const getNovels = () => {
-        let novels = [{
-            _id: "123",
-            title: "Хуйларч буй луу",
-            chapter: "19",
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-            duration: 15,
-            progress: 70
-        }, {
-            _id: "123",
-            title: "Хуйларч буй луу",
-            chapter: "19",
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-            duration: 15,
-            progress: 100
-        }, {
-            _id: "123",
-            title: "Хуйларч буй луу",
-            chapter: "19",
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-            duration: 15,
-            progress: 37
-        }, {
-            _id: "123",
-            title: "Хуйларч буй луу",
-            chapter: "19",
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-            duration: 15,
-            progress: 70
-        }, {
-            _id: "123",
-            title: "Хуйларч буй луу",
-            chapter: "19",
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-            duration: 15,
-            progress: 70
-        }, {
-            _id: "123",
-            title: "Хуйларч буй луу",
-            chapter: "19",
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-            duration: 15,
-            progress: 70
-        }, {
-            _id: "123",
-            title: "Хуйларч буй луу",
-            chapter: "19",
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-            duration: 15,
-            progress: 70
-        }, {
-            _id: "123",
-            title: "Хуйларч буй луу",
-            chapter: "19",
-            cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-            duration: 15,
-            progress: 70
-        }]
-
-        setNovels(novels)
+    const getChapters = () => {
+        fetchRecentlyChapters()
+        .then((res) => {
+            if(res.data.code == 0){
+                setChapters(res.data.chapters)
+            }
+        }).catch((err) => console.log(err))
     }
 
-    const renderNovel = ({ item }) => {
+    const renderChapter = ({ item }) => {
         return (
             <ChapterItem 
-                novel={item}
+                chapter={item}
                 onPress={props.onchapterPressed}
             />  
         )
@@ -100,8 +46,8 @@ const ChapterList = (props) => {
             <FlatList 
                 scrollEnabled={false}
                 keyExtractor={(item, index) => index}
-                data={novels}
-                renderItem={renderNovel}
+                data={chapters}
+                renderItem={renderChapter}
                 ItemSeparatorComponent={() => <Box height={20} />}
             />
         </Box>
