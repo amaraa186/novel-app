@@ -25,8 +25,12 @@ const ChapterDetail = (props) => {
     }
 
     const onchapterPressed = (id) => {
-        props.navigation.navigate('ChapterDetail', {
-            _id: id
+        props.navigation.navigate({
+            name: 'ChapterDetail',
+            params: {
+                _id: id,
+            },
+            key: id
         })
     }
         
