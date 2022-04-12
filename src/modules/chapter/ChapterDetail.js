@@ -2,11 +2,8 @@ import React, { useState, useRef, useEffect } from 'react'
 import { ScrollView, View, TouchableOpacity, DrawerLayoutAndroid, ActivityIndicator } from 'react-native'
 import { Box, Text } from '../../components'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
-const readingTime = require('reading-time');
 import { fetchChapter, fetchNovelChapters } from './ChapterApi';
 import _ from 'lodash'
-
-
 
 const ChapterDetail = (props) => {
     const drawer = useRef()
@@ -17,7 +14,7 @@ const ChapterDetail = (props) => {
     const [fetching, setFetching] = useState(false)
     const [chapters, setChapters] = useState([])
 
-    const onBack = () => props.navigation.goBack()
+    const onBack = () => props.navigation.navigate({name: 'Home'})
 
     const onThemeChange = () => {
         setColorText(!colorText)

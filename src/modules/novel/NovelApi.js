@@ -8,6 +8,12 @@ export async function fetchNovels() {
     return await request().get('/novel')
 }
 
+export async function fetchSearch(params) {
+    return await request().get('/novel/search/', {
+        params
+    })
+}
+
 export async function fetchPopularNovels() {
     return await request().get('/novel/popular')
 }

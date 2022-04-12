@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { View, ScrollView, TextInput } from 'react-native'
 import { Box, Text } from '../../components'
 import SearchItem from './SearchItem'
@@ -55,8 +55,8 @@ let novels = [{
 }]
 
 const SearchView = (props) => {
-
     const { navigation } = props
+    const [search, setSearch] = useState("")
 
     const onNovelPressed = () => {
         navigation.navigate('NovelDetail')

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Image, View, TouchableOpacity } from 'react-native'
 import { Box, Text } from '../../components'
 import { Rating } from 'react-native-ratings';
@@ -6,6 +6,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 
 const NovelItem = (props) => {
     const { novel, onPress = () => {} } = props
+    
+
+    const onBookMark = () => {
+
+    }
 
     return (
         <Box pY={2}>
@@ -27,7 +32,7 @@ const NovelItem = (props) => {
                     <Box pX={10} pY={10} flex={1}>
                         <Box direction='row' jc='between'>
                             <Text color='gray'>{novel.total_chapter} бүлэг</Text>
-                            <TouchableOpacity onPress={() => alert("AA")}>
+                            <TouchableOpacity onPress={() => onBookMark()}>
                                 <MaterialCommunityIcons name='bookmark-outline' color='black' size={23} />
                             </TouchableOpacity>
                         </Box>
