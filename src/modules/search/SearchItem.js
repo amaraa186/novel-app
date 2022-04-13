@@ -9,7 +9,7 @@ const SearchItem = (props) => {
 
     return (
         <Box pY={2}>
-            <TouchableOpacity style={{ flex: 1 }} onPress={onPress}>
+            <TouchableOpacity style={{ flex: 1 }} onPress={() => onPress(novel._id)}>
                 <Box direction='row' bR={20}>
                     <Box height={150} width={100} bR={20}>
                         <Image 

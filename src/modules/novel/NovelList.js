@@ -3,18 +3,14 @@ import { Image, TouchableOpacity, ScrollView } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import { Box } from '../../components'
 import NovelItem from './NovelItem'
-import { fetchNovels, fetchSearch } from './NovelApi'
+import { fetchNovels, fetchFilter } from './NovelApi'
 import { fetchCategories } from './CategoryApi'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 
 const NovelList = (props) => {
-    const [pickedCategory, setPickedCategory] = useState()
+    const [pickedCategory, setPickedCategory] = useState('ALL')
     const [novels, setNovels] = useState([])
     const [categories, setCategories] = useState([])
-
-    // useEffect(() => {
-    //     getNovels()
-    // }, [])
 
     useEffect(() => {
         getCategories()
@@ -22,16 +18,11 @@ const NovelList = (props) => {
 
     useEffect(() => {
         getSearched()
-    }, [pickedCategory])
+    }, [])
 
-    // const getNovels = () => {
-    //     fetchNovels()
-    //     .then((res) => {
-    //         if(res.data.code == 0) {
-    //             setNovels(res.data.novels)
-    //         }
-    //     }).catch((err) => console.log(err))
-    // }
+    useEffect(() => {
+        getSearched()
+    }, [pickedCategory])
 
     const getCategories = () => {
         fetchCategories()
@@ -43,7 +34,7 @@ const NovelList = (props) => {
     }
 
     const getSearched = () => {
-        fetchSearch(pickedCategory)
+        fetchFilter(pickedCategory)
         .then((res) => {
             if(res.data.code == 0) {
                 setNovels(res.data.novels)

@@ -1,68 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, ScrollView, TextInput } from 'react-native'
 import { Box, Text } from '../../components'
 import SearchItem from './SearchItem'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
-
-let novels = [{
-    _id: "123",
-    title: "Хуйларч буй луу",
-    total_chapter: 19,
-    cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-    duration: 300,
-    rating: 5.0,
-    author: "I eat tomatoes"
-}, {
-    _id: "123",
-    title: "Хуйларч буй луу",
-    total_chapter: 19,
-    cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-    duration: 300,
-    rating:  5.0,
-    author: "I eat tomatoes"
-}, {
-    _id: "123",
-    title: "Хуйларч буй луу",
-    total_chapter: 19,
-    cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-    duration: 300,
-    rating: 5.0,
-    author: "I eat tomatoes"
-}, {
-    _id: "123",
-    title: "Хуйларч буй луу",
-    total_chapter: 19,
-    cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-    duration: 300,
-    rating: 5.0,
-    author: "I eat tomatoes"
-}, {
-    _id: "123",
-    title: "Хуйларч буй луу bla sdhada akshd",
-    total_chapter: 19,
-    cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-    duration: 300,
-    rating: 5.0,
-    author: "I eat tomatoes"
-}, {
-    _id: "123",
-    title: "Хуйларч буй луу bla sdhada akshd",
-    total_chapter: 19,
-    cover_url: "https://img.webnovel.com/bookcover/8094085105004705/300/300.jpg?updateTime=1552557356092",
-    duration: 300,
-    rating: 5.0,
-    author: "I eat tomatoes"
-}]
+import { fetchSearch } from '../novel/NovelApi'
 
 const SearchView = (props) => {
     const { navigation } = props
-    const [search, setSearch] = useState("")
+    const [novels, setNovels] = useState([])
+    const [value, setValue] = useState('')
 
-    const onNovelPressed = () => {
-        navigation.navigate('NovelDetail')
+    const onNovelPressed = (id) => {
+        navigation.navigate('NovelDetail', {
+            _id: id
+        })
     }
 
-    const [value, setValue] = useState('')
+    useEffect(() => {
+        getNovels()
+    }, [])
+
+    useEffect(() => {
+        getNovels()
+    }, [value])
+
+    const getNovels = () => {
+        fetchSearch(value)
+        .then((res) => {
+            if(res.data.code == 0) {
+                setNovels(res.data.novels)
+            }
+        }).catch((err) => console.log(err))
+    }
+
     return (
         <Box pY={4} pX={4} mB={45}>
             <Box pX={8}>

@@ -14,6 +14,12 @@ export async function fetchSearch(params) {
     })
 }
 
+export async function fetchFilter(search_value) {
+    return await request().get('/novel/filter/', {
+        search_value
+    })
+}
+
 export async function fetchPopularNovels() {
     return await request().get('/novel/popular')
 }
