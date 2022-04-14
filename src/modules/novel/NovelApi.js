@@ -14,9 +14,9 @@ export async function fetchSearch(params) {
     })
 }
 
-export async function fetchFilter(search_value) {
+export async function fetchFilter(params) {
     return await request().get('/novel/filter/', {
-        search_value
+        params
     })
 }
 

@@ -4,21 +4,55 @@ import { Box, Text } from '../../components'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 import { fetchChapter, fetchNovelChapters } from './ChapterApi';
 import _ from 'lodash'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ChapterDetail = (props) => {
     const drawer = useRef()
     const [fontSize, setFontSize] = useState(14)
-    const [colorTheme, setColorTheme] = useState(true)
-    const [colorText, setColorText] = useState(true)
+    const [colorTheme, setColorTheme] = useState()
     const [chapter, setChapter] = useState({})
     const [fetching, setFetching] = useState(false)
     const [chapters, setChapters] = useState([])
 
+    useEffect(() => {
+        getThemeColor()
+    }, [])
+
     const onBack = () => props.navigation.navigate({name: 'Home'})
 
     const onThemeChange = () => {
-        setColorText(!colorText)
-        setColorTheme(!colorTheme)
+        // setColorTheme(!colorTheme)
+        changeThemeColor()
+    }
+
+    const getThemeColor = async () => {
+        try {
+            await AsyncStorage.getItem('@ColorTheme')
+            .then( value => {
+                if(value != null){
+                //    setColorTheme(JSON.parse(value))
+                } else {
+                    AsyncStorage.setItem('@ColorTheme', 'true')
+                    .then(setColorTheme(JSON.parse('true')))
+                }
+            })
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    const changeThemeColor = async () => {
+        try {
+            await AsyncStorage.getItem('@ColorTheme')
+            .then(value => {
+                if(value != null){
+                   AsyncStorage.setItem('@ColorTheme', (!colorTheme).toString)
+                    .then(setColorTheme(!colorTheme))
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     const onchapterPressed = (id) => {
@@ -60,6 +94,16 @@ const ChapterDetail = (props) => {
             }
         })
         .catch((err) => console.log(err))
+    }
+
+    const preChapter = (episode) => {
+        let findChapter = chapters.find(chapter => chapter.episode < episode)
+        onchapterPressed(findChapter._id)
+    }
+
+    const afChapter = (episode) => {
+        let findChapter = chapters.find(chapter => chapter.episode > episode)
+        onchapterPressed(findChapter._id)
     }
 
     const sideBar = () => (
@@ -109,20 +153,20 @@ const ChapterDetail = (props) => {
                             padding: 20
                         }} style={{backgroundColor: colorTheme == true ? "white" : "#212129"}}>
                             <Box>
-                                <Text align='center' color={colorText == true ? "black" : "white"}>Бүлэг - {chapter.episode}</Text>
+                                <Text align='center' color={colorTheme == true ? "black" : "white"}>Бүлэг - {chapter.episode}</Text>
                             </Box>
                             <Box>
-                                <Text h2 align='center' font='bold' color={colorText == true ? "black" : "white"}>{chapter.title}</Text>
+                                <Text h2 align='center' font='bold' color={colorTheme == true ? "black" : "white"}>{chapter.title}</Text>
                             </Box>
                         
-                            <Text lineHeight={fontSize * 2} size={fontSize} align='justify' color={colorText == true ? "black" : "white"}>{chapter.content}</Text>
+                            <Text lineHeight={fontSize * 2} size={fontSize} align='justify' color={colorTheme == true ? "black" : "white"}>{chapter.content}</Text>
                         </ScrollView>
 
                         <Box bg='black'>
                             <Box direction='row' align='center' jc='between' pX={14} pY={3}>
                                 {
                                     chapter.episode > 1 && 
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => preChapter(chapter.episode)}>
                                         <MaterialCommunityIcons color='white' name="chevron-left" size={20}/>
                                     </TouchableOpacity> ||
                                     <Box />
@@ -130,7 +174,7 @@ const ChapterDetail = (props) => {
                                 <Text color='white'>{100 * chapter.episode / chapters.length}%</Text>
                                 {
                                     chapter.episode != chapters.length && 
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => afChapter(chapter.episode)}>
                                         <MaterialCommunityIcons color='white' name="chevron-right" size={20}/>
                                     </TouchableOpacity> ||
                                     <Box />

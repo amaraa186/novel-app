@@ -18,10 +18,6 @@ const NovelList = (props) => {
 
     useEffect(() => {
         getSearched()
-    }, [])
-
-    useEffect(() => {
-        getSearched()
     }, [pickedCategory])
 
     const getCategories = () => {
