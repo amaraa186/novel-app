@@ -30,10 +30,10 @@ const ChapterDetail = (props) => {
             await AsyncStorage.getItem('@ColorTheme')
             .then( value => {
                 if(value != null){
-                //    setColorTheme(JSON.parse(value))
+                   setColorTheme(JSON.parse(value))
                 } else {
                     AsyncStorage.setItem('@ColorTheme', 'true')
-                    .then(setColorTheme(JSON.parse('true')))
+                    .then(() => setColorTheme(true))
                 }
             })
         } catch(e) {
@@ -46,8 +46,8 @@ const ChapterDetail = (props) => {
             await AsyncStorage.getItem('@ColorTheme')
             .then(value => {
                 if(value != null){
-                   AsyncStorage.setItem('@ColorTheme', (!colorTheme).toString)
-                    .then(setColorTheme(!colorTheme))
+                    AsyncStorage.setItem('@ColorTheme', (!colorTheme).toString())
+                    .then(() => setColorTheme(!colorTheme))
                 }
             })
         } catch (e) {
@@ -171,7 +171,7 @@ const ChapterDetail = (props) => {
                                     </TouchableOpacity> ||
                                     <Box />
                                 }
-                                <Text color='white'>{100 * chapter.episode / chapters.length}%</Text>
+                                <Text color='white'>{parseInt(100 * chapter.episode / chapters.length)}%</Text>
                                 {
                                     chapter.episode != chapters.length && 
                                     <TouchableOpacity onPress={() => afChapter(chapter.episode)}>
