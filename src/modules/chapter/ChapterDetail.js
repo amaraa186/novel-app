@@ -18,7 +18,18 @@ const ChapterDetail = (props) => {
         getThemeColor()
     }, [])
 
-    const onBack = () => props.navigation.navigate({name: 'Home'})
+    const onBack = () => {
+        saveChapter()
+        props.navigation.navigate({name: 'Home'})
+    }
+
+    const saveChapter = async () => {
+        try {
+            await AsyncStorage.setItem(`@${chapter.novel.title}`, JSON.stringify(chapter._id))
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const onThemeChange = () => {
         // setColorTheme(!colorTheme)

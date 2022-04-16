@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, Image, TouchableOpacity, ActivityIndicator, View, AsyncStorage } from 'react-native'
+import { ScrollView, Image, TouchableOpacity, ActivityIndicator, View } from 'react-native'
 import { Box, Text } from '../../components'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 import { fetchNovel } from './NovelApi';
 import _ from 'lodash'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const NovelDetail = (props) => {
     const [novel, setNovel] = useState({})
     const [fetching, setFetching] = useState(false)
 
     const onBack = () => props.navigation.goBack()
+
+    const onchapterPressed = (id) => {
+        props.navigation.navigate({
+            name: 'ChapterDetail',
+            params: {
+                _id: id,
+            },
+            key: id
+        })
+    }
 
     useEffect(() => {
         getNovel()
@@ -22,11 +33,20 @@ const NovelDetail = (props) => {
         .then((res) => {
             if(res.data.code == 0){
                 setNovel(res.data.novel)
-                // alert(JSON.stringify(res.data.novel))
             }
         }).catch((err) => console.log(err))
         .then(() => setFetching(false))
     }
+
+    const onReadChapter = async () => {
+        try {
+            let value = await AsyncStorage.getItem(`@${novel.title}`)
+            onchapterPressed(JSON.parse(value))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     if(fetching == true || _.isEmpty(novel)){
         return (
             <View style={{alignContent: 'center', justifyContent: 'center', flex: 1}}>
@@ -99,7 +119,7 @@ const NovelDetail = (props) => {
                         <Text align='justify'>{novel.description}</Text>
                     </Box>
                     <Box pY={12} pX={12}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={onReadChapter}>
                             <Box bg='blue' pY={12} pX={12}>
                                 <Text align='center' color='white'>Унших</Text>
                             </Box>
