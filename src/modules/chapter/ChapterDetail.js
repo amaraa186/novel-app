@@ -18,7 +18,18 @@ const ChapterDetail = (props) => {
         getThemeColor()
     }, [])
 
-    const onBack = () => props.navigation.navigate({name: 'Home'})
+    const onBack = () => {
+        saveChapter()
+        props.navigation.navigate({name: 'Home'})
+    }
+
+    const saveChapter = async () => {
+        try {
+            await AsyncStorage.setItem(`@${chapter.novel.title}`, JSON.stringify(chapter._id))
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const onThemeChange = () => {
         // setColorTheme(!colorTheme)
@@ -30,10 +41,10 @@ const ChapterDetail = (props) => {
             await AsyncStorage.getItem('@ColorTheme')
             .then( value => {
                 if(value != null){
-                //    setColorTheme(JSON.parse(value))
+                   setColorTheme(JSON.parse(value))
                 } else {
                     AsyncStorage.setItem('@ColorTheme', 'true')
-                    .then(setColorTheme(JSON.parse('true')))
+                    .then(() => setColorTheme(true))
                 }
             })
         } catch(e) {
@@ -46,8 +57,8 @@ const ChapterDetail = (props) => {
             await AsyncStorage.getItem('@ColorTheme')
             .then(value => {
                 if(value != null){
-                   AsyncStorage.setItem('@ColorTheme', (!colorTheme).toString)
-                    .then(setColorTheme(!colorTheme))
+                    AsyncStorage.setItem('@ColorTheme', (!colorTheme).toString())
+                    .then(() => setColorTheme(!colorTheme))
                 }
             })
         } catch (e) {
@@ -171,7 +182,7 @@ const ChapterDetail = (props) => {
                                     </TouchableOpacity> ||
                                     <Box />
                                 }
-                                <Text color='white'>{100 * chapter.episode / chapters.length}%</Text>
+                                <Text color='white'>{parseInt(100 * chapter.episode / chapters.length)}%</Text>
                                 {
                                     chapter.episode != chapters.length && 
                                     <TouchableOpacity onPress={() => afChapter(chapter.episode)}>
