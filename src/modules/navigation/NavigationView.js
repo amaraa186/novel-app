@@ -2,7 +2,7 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator()
@@ -20,13 +20,13 @@ const TabView = () => {
     return (
         <Tab.Navigator initialRouteName='Home'>
             <Tab.Screen name="Search" component={SearchView} options={{ headerShown: false, tabBarLabel: "Хайлт", tabBarIcon: ({color, size}) => (
-                <MaterialCommunityIcons name="search" color={color} size={size} /> 
+                <MaterialCommunityIcons name="magnify" color={color} size={size} /> 
             ) }} />
             <Tab.Screen name="Home" component={HomeView} options={{ headerShown: false, tabBarLabel: "Нүүр", tabBarIcon: ({color, size}) => (
                 <MaterialCommunityIcons name="home" color={color} size={size} /> 
             ) }} />
             <Tab.Screen name="Bookmark" component={BookmarkView} options={{ headerShown: false, tabBarLabel: "Номын сан", tabBarIcon: ({color, size}) => (
-                <MaterialCommunityIcons name="bookmark" color={color} size={size} /> 
+                <MaterialCommunityIcons name="bookshelf" color={color} size={size} /> 
             ) }}/>
         </Tab.Navigator>
     )

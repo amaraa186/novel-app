@@ -41,6 +41,8 @@ const NovelDetail = (props) => {
     const onReadChapter = async () => {
         try {
             let value = await AsyncStorage.getItem(`@${novel.title}`)
+            if(value == null)
+                return alert('Одоохондоо бүлэг нэмэгдээгүй байна.')
             onchapterPressed(JSON.parse(value))
         } catch (error) {
             console.log(error)
