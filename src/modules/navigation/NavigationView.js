@@ -20,7 +20,7 @@ const TabView = () => {
     return (
         <Tab.Navigator initialRouteName='Home'>
             <Tab.Screen name="Search" component={SearchView} options={{ headerShown: false, tabBarLabel: "Хайлт", tabBarIcon: ({color, size}) => (
-                <MaterialCommunityIcons name="search" color={color} size={size} /> 
+                <MaterialCommunityIcons name="magnify" color={color} size={size} /> 
             ) }} />
             <Tab.Screen name="Home" component={HomeView} options={{ headerShown: false, tabBarLabel: "Нүүр", tabBarIcon: ({color, size}) => (
                 <MaterialCommunityIcons name="home" color={color} size={size} /> 

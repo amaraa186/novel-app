@@ -53,8 +53,8 @@ const NovelList = (props) => {
         try {
             let value = await AsyncStorage.getItem(`@bookmark`)
             let parseA = JSON.parse(value);
-
-            if(parseA.length == 0){
+            if(parseA.length == 0 || parseA == null){
+                alert('A')
                 let array = [id]
                 return AsyncStorage.setItem(`@bookmark`, JSON.stringify(array))
             }
