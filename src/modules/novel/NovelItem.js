@@ -41,9 +41,9 @@ const NovelItem = (props) => {
 
     if(fetching == true){
         return (
-            <View style={{alignContent: 'center', justifyContent: 'center', flex: 1}}>
+            <Box align='center' jc='center' flex={1}>
                 <ActivityIndicator />
-            </View>
+            </Box>
         )
     } else {
         return (
