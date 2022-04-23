@@ -10,6 +10,7 @@ const Stack = createStackNavigator()
 import HomeView from '../home/HomeView'
 import SearchView from '../search/SearchView'
 import BookmarkView from '../bookmark/BookmarkView'
+import AccountView from '../account/AccountView'
 import ChapterDetail from '../chapter/ChapterDetail';
 import NovelList from '../novel/NovelList'
 import NovelDetail from '../novel/NovelDetail'
@@ -25,8 +26,8 @@ const TabView = () => {
             <Tab.Screen name="Home" component={HomeView} options={{ headerShown: false, tabBarLabel: "Нүүр", tabBarIcon: ({color, size}) => (
                 <MaterialCommunityIcons name="home" color={color} size={size} /> 
             ) }} />
-            <Tab.Screen name="Bookmark" component={BookmarkView} options={{ headerShown: false, tabBarLabel: "Номын сан", tabBarIcon: ({color, size}) => (
-                <MaterialCommunityIcons name="bookshelf" color={color} size={size} /> 
+            <Tab.Screen name="Account" component={AccountView} options={{ headerShown: false, tabBarLabel: "Хувийн хэсэг", tabBarIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="account" color={color} size={size} /> 
             ) }}/>
         </Tab.Navigator>
     )
@@ -44,6 +45,7 @@ const NavigationView = () => {
                 <Stack.Screen name="SignupPage" component={SignupPage} options={{ headerShown: false }}/>
                 <Stack.Screen name="NovelDetail" component={NovelDetail} options={{ headerShown: false }}/>
                 <Stack.Screen name="NovelList" component={NovelList} options={{ headerShown: false }}/>
+                <Stack.Screen name="Bookmark" component={BookmarkView} options={{ headerShown: false }}/>
             </Stack.Navigator>
         </NavigationContainer>
     )

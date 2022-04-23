@@ -77,7 +77,7 @@ const NovelList = (props) => {
         <Box mB={45}>
             <Box pY={4} pX={4} direction='row' align='center'>
                 <TouchableOpacity onPress={props.navigation.goBack}>
-                    <MaterialCommunityIcons name='chevron-left' size={30} color='black' />
+                    <MaterialCommunityIcons name='chevron-left' size={22} color='black' />
                 </TouchableOpacity>
                 <Box width={25} />
                 <Picker

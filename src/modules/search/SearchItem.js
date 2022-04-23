@@ -28,7 +28,7 @@ const SearchItem = (props) => {
                         <Box direction='row' jc='between'>
                             <Text color='gray'>{novel.total_chapter} бүлэг</Text>
                             <TouchableOpacity onPress={() => alert("AA")}>
-                                <MaterialCommunityIcons name='bookmark-outline' color='black' size={23} />
+                                <MaterialCommunityIcons name='bookmark-outline' color='black' size={22} />
                             </TouchableOpacity>
                         </Box>
                         <Box mT={12}>

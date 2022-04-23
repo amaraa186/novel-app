@@ -67,7 +67,7 @@ const NovelItem = (props) => {
                             <Box direction='row' jc='between'>
                                 <Text color='gray'>{novel.total_chapter} бүлэг</Text>
                                 <TouchableOpacity onPress={() => changeBookMark(novel._id)}>
-                                    <MaterialCommunityIcons name={bookmark == false ? 'bookmark-outline' : 'bookmark'} color='black' size={23} />
+                                    <MaterialCommunityIcons name={bookmark == false ? 'bookmark-outline' : 'bookmark'} color='black' size={22} />
                                 </TouchableOpacity>
                             </Box>
                             <Box mT={8}>

@@ -155,7 +155,7 @@ const ChapterDetail = (props) => {
                             <Box direction='row' jc='end' pX={20}>
                                 <TouchableOpacity onPress={onBack}>
                                     <Box bg="transBlack" height={30} width={30} jc='center' align='center' bR={15}>
-                                        <MaterialCommunityIcons name="close" size={20} color="white" />
+                                        <MaterialCommunityIcons name="close" size={22} color="white" />
                                     </Box>
                                 </TouchableOpacity>
                             </Box>
@@ -178,7 +178,7 @@ const ChapterDetail = (props) => {
                                 {
                                     chapter.episode > 1 && 
                                     <TouchableOpacity onPress={() => preChapter(chapter.episode)}>
-                                        <MaterialCommunityIcons color='white' name="chevron-left" size={20}/>
+                                        <MaterialCommunityIcons color='white' name="chevron-left" size={22}/>
                                     </TouchableOpacity> ||
                                     <Box />
                                 }
@@ -186,7 +186,7 @@ const ChapterDetail = (props) => {
                                 {
                                     chapter.episode != chapters.length && 
                                     <TouchableOpacity onPress={() => afChapter(chapter.episode)}>
-                                        <MaterialCommunityIcons color='white' name="chevron-right" size={20}/>
+                                        <MaterialCommunityIcons color='white' name="chevron-right" size={22}/>
                                     </TouchableOpacity> ||
                                     <Box />
                                 }
@@ -205,9 +205,9 @@ const ChapterDetail = (props) => {
                                         <Box pA={10} bg='white' height={40}>
                                             {
                                                 colorTheme == true ? 
-                                                (<MaterialCommunityIcons name="brightness-2" size={20} color="black" />) 
+                                                (<MaterialCommunityIcons name="brightness-2" size={22} color="black" />) 
                                                 : 
-                                                (<MaterialCommunityIcons name="brightness-5" size={20} color="black" />) 
+                                                (<MaterialCommunityIcons name="brightness-5" size={22} color="black" />) 
                                             }
                                         </Box>
                                     </TouchableOpacity>

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { ScrollView, Image, TouchableOpacity, ActivityIndicator, View } from 'react-native'
 import { Box, Text } from '../../components'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 import { fetchNovel } from './NovelApi';
 import _ from 'lodash'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 const NovelDetail = (props) => {
     const [novel, setNovel] = useState({})
@@ -42,7 +43,11 @@ const NovelDetail = (props) => {
         try {
             let value = await AsyncStorage.getItem(`@${novel.title}`)
             if(value == null)
-                return alert('Одоохондоо бүлэг нэмэгдээгүй байна.')
+                return Toast.show({
+                    type: 'error',
+                    text1: 'Алдаа',
+                    text2: 'Одоогоор бүлэг нэмэгдээгүй байна.'
+                  });
             onchapterPressed(JSON.parse(value))
         } catch (error) {
             console.log(error)
@@ -61,9 +66,12 @@ const NovelDetail = (props) => {
                 <ScrollView contentContainerStyle={{
                         padding: 10
                     }}>
-                    <Box pY={4}>
+                    <Box pY={4} jc='between' direction='row'>
                         <TouchableOpacity onPress={onBack}>
-                            <MaterialCommunityIcons name='chevron-left' size={30} color='black'/>
+                            <MaterialCommunityIcons name='chevron-left' size={22} color='black'/>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <MaterialCommunityIcons name='bookmark-outline' size={22} color='black'/>
                         </TouchableOpacity>
                     </Box>
                     <Box>
