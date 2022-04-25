@@ -16,6 +16,7 @@ import NovelList from '../novel/NovelList'
 import NovelDetail from '../novel/NovelDetail'
 import LoginPage from '../login/LoginPage';
 import SignupPage from '../login/SignupPage';
+import LoginMain from '../login/LoginMain';
 
 const TabView = () => {
     return (
@@ -46,6 +47,7 @@ const NavigationView = () => {
                 <Stack.Screen name="NovelDetail" component={NovelDetail} options={{ headerShown: false }}/>
                 <Stack.Screen name="NovelList" component={NovelList} options={{ headerShown: false }}/>
                 <Stack.Screen name="Bookmark" component={BookmarkView} options={{ headerShown: false }}/>
+                <Stack.Screen name="LoginMain" component={LoginMain} options={{ headerShown: false }}/>
             </Stack.Navigator>
         </NavigationContainer>
     )

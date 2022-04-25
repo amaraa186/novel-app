@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import { TextInput, TouchableOpacity } from 'react-native'
 import { Box, Text } from '../../components'
+import { loginHandler } from './AuthApi'
+import _ from 'lodash'
+import Toast from 'react-native-toast-message';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginPage = (props) => {
 
@@ -11,51 +15,94 @@ const LoginPage = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const onLoginHandler = () => {
+        if(_.isEmpty(email))
+            return Toast.show({
+                type: 'error',
+                text1: 'Алдаа',
+                text2: 'Имэйл хаягаа оруулна уу'
+              });
+
+        if(_.isEmpty(password))
+            return Toast.show({
+                type: 'error',
+                text1: 'Алдаа',
+                text2: 'Нууц үгээ оруулна уу'
+            });
+
+        loginHandler({
+            email,
+            password
+        })
+        .then((res) => {
+            if(res.data.code != 0){
+                return Toast.show({
+                    type: 'error',
+                    text1: 'Алдаа',
+                    text2: res.data.data
+                });
+            }
+
+            if(res.data.code == 0){
+                const { user, token } = res.data;
+
+                try {
+                    AsyncStorage.setItem('token', token);
+                    AsyncStorage.setItem("user", JSON.stringify(user))
+                
+                    return props.navigation.navigate('Home')
+                } catch (err) {
+                    console.log(err)
+                }
+            }
+        }).catch((err) => console.log(err))
+    }
+
     return (
-        <Box insertsTop align='center' jc='center' flex={1} style={{ backgroundColor: '#212129'}} insertsBottom>
-            <Box align='center' flex={1} jc='end'>
+        <Box insertsTop align='center' jc='evenly' flex={1} insertsBottom>
+            <Box align='center'>
                 <Box jc='center'>
-                    <Text h1 font='bold' color='white'>Нэвтрэх</Text>
+                    <Text h1 font='bold'>Нэвтрэх</Text>
                 </Box>
                 <Box align='center'>
-                    <Box pY={8}>
+                    <Box pY={6}>
                         <TextInput 
                             placeholder='Имэйл хаяг'
                             value={email}
                             onChangeText={setEmail}
+                            keyboardType='email-address'
                             style={{
                                 backgroundColor: 'white',
                                 width: 300,
-                                borderRadius: 10,
                             }}
                         />
                     </Box>
-                    <Box pY={8}>
+                    <Box pY={6}>
                         <TextInput 
                             placeholder='Нууц үг'
                             value={password}
                             onChangeText={setPassword}
+                            secureTextEntry={true}
                             style={{
                                 backgroundColor: 'white',
                                 width: 300,
-                                borderRadius: 10
                             }}
                         />
                     </Box>
                 </Box>
-            </Box>
-            <Box align='center' jc='between' flex={1} pY={12}>
-                <Box>
-                    <TouchableOpacity>
-                        <Box bg='red' pY={8} pX={8} width={200} bR={10}>
-                            <Text color='white' align='center'>Нэвтрэх</Text>
+                <Box pY={8}>
+                    <TouchableOpacity onPress={onLoginHandler}>
+                        <Box bg='red' pY={12} pX={12} width={220}>
+                            <Text color='white' align='center' h2>Нэвтрэх</Text>
                         </Box>
                     </TouchableOpacity>
                 </Box>
+            </Box>
+            <Box align='center' pY={12}>
                 <Box pY={12} direction='row'>
-                    <Text color='white'>Бүртгүүлж амжаагүй л байна уу? </Text>
+                    <Text>Бүртгүүлж амжаагүй л байна уу? </Text>
                     <TouchableOpacity onPress={onSignup}>
-                        <Text font='bold' color='white'>Бүртгүүлэх</Text>
+                        <Text font='bold'>Бүртгүүлэх</Text>
                     </TouchableOpacity>
                 </Box>
             </Box>
