@@ -70,7 +70,7 @@ const NovelDetail = (props) => {
                         <TouchableOpacity onPress={onBack}>
                             <MaterialCommunityIcons name='chevron-left' size={22} color='black'/>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => onBookmark(novel._id)}>
                             <MaterialCommunityIcons name='bookmark-outline' size={22} color='black'/>
                         </TouchableOpacity>
                     </Box>
