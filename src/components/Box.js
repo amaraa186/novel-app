@@ -57,6 +57,8 @@ const Box = (props) => {
 			case 'end': return 'flex-end'
 			case 'center': return 'center'
 			case 'between': return 'space-between'
+			case 'evenly': return 'space-evenly'
+			case 'around': return 'space-around'
 		}
 	}
 
