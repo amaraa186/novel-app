@@ -150,85 +150,83 @@ const ChapterDetail = (props) => {
                     renderNavigationView={sideBar}
                 >
                 <Box flex={1} insetsTop>
-                    <Box flex={1}>
-                        <View style={{ position: 'absolute', top: 15, right: 0, zIndex: 2 }}>
-                            <Box direction='row' jc='end' pX={20}>
-                                <TouchableOpacity onPress={onBack}>
-                                    <Box bg="transBlack" height={30} width={30} jc='center' align='center' bR={15}>
-                                        <MaterialCommunityIcons name="close" size={22} color="white" />
+                    <View style={{ position: 'absolute', top: 15, right: 0, zIndex: 2 }}>
+                        <Box direction='row' jc='end' pX={20}>
+                            <TouchableOpacity onPress={onBack}>
+                                <Box bg="transBlack" height={30} width={30} jc='center' align='center' bR={15}>
+                                    <MaterialCommunityIcons name="close" size={22} color="white" />
+                                </Box>
+                            </TouchableOpacity>
+                        </Box>
+                    </View>
+                    <ScrollView contentContainerStyle={{
+                        padding: 20
+                    }} style={{backgroundColor: colorTheme == true ? "white" : "#212129"}}>
+                        <Box>
+                            <Text align='center' color={colorTheme == true ? "black" : "white"}>Бүлэг - {chapter.episode}</Text>
+                        </Box>
+                        <Box>
+                            <Text h2 align='center' font='bold' color={colorTheme == true ? "black" : "white"}>{chapter.title}</Text>
+                        </Box>
+                    
+                        <Text lineHeight={fontSize * 2} size={fontSize} align='justify' color={colorTheme == true ? "black" : "white"}>{chapter.content}</Text>
+                    </ScrollView>
+
+                    <Box bg='black'>
+                        <Box direction='row' align='center' jc='between' pX={14} pY={3}>
+                            {
+                                chapter.episode > 1 && 
+                                <TouchableOpacity onPress={() => preChapter(chapter.episode)}>
+                                    <MaterialCommunityIcons color='white' name="chevron-left" size={22}/>
+                                </TouchableOpacity> ||
+                                <Box />
+                            }
+                            <Text color='white'>{parseInt(100 * chapter.episode / chapters.length)}%</Text>
+                            {
+                                chapter.episode != chapters.length && 
+                                <TouchableOpacity onPress={() => afChapter(chapter.episode)}>
+                                    <MaterialCommunityIcons color='white' name="chevron-right" size={22}/>
+                                </TouchableOpacity> ||
+                                <Box />
+                            }
+                        </Box>
+                        <Box height={60} pX={20} pY={8} direction='row'>
+                            <Box flex={1} direction='row'>
+                                <TouchableOpacity onPress={() => drawer.current.openDrawer()}>
+                                    <Box pA={10} bg='white' height={40}>
+                                        <Text font='bold'>{chapter.episode}/{chapters.length}</Text>
+                                    </Box>
+                                </TouchableOpacity>
+
+                                <Box width={8} />
+                                
+                                <TouchableOpacity onPress={onThemeChange}>
+                                    <Box pA={10} bg='white' height={40}>
+                                        {
+                                            colorTheme == true ? 
+                                            (<MaterialCommunityIcons name="brightness-2" size={22} color="black" />) 
+                                            : 
+                                            (<MaterialCommunityIcons name="brightness-5" size={22} color="black" />) 
+                                        }
                                     </Box>
                                 </TouchableOpacity>
                             </Box>
-                        </View>
-                        <ScrollView contentContainerStyle={{
-                            padding: 20
-                        }} style={{backgroundColor: colorTheme == true ? "white" : "#212129"}}>
-                            <Box>
-                                <Text align='center' color={colorTheme == true ? "black" : "white"}>Бүлэг - {chapter.episode}</Text>
-                            </Box>
-                            <Box>
-                                <Text h2 align='center' font='bold' color={colorTheme == true ? "black" : "white"}>{chapter.title}</Text>
-                            </Box>
-                        
-                            <Text lineHeight={fontSize * 2} size={fontSize} align='justify' color={colorTheme == true ? "black" : "white"}>{chapter.content}</Text>
-                        </ScrollView>
-
-                        <Box bg='black'>
-                            <Box direction='row' align='center' jc='between' pX={14} pY={3}>
-                                {
-                                    chapter.episode > 1 && 
-                                    <TouchableOpacity onPress={() => preChapter(chapter.episode)}>
-                                        <MaterialCommunityIcons color='white' name="chevron-left" size={22}/>
-                                    </TouchableOpacity> ||
-                                    <Box />
-                                }
-                                <Text color='white'>{parseInt(100 * chapter.episode / chapters.length)}%</Text>
-                                {
-                                    chapter.episode != chapters.length && 
-                                    <TouchableOpacity onPress={() => afChapter(chapter.episode)}>
-                                        <MaterialCommunityIcons color='white' name="chevron-right" size={22}/>
-                                    </TouchableOpacity> ||
-                                    <Box />
-                                }
-                            </Box>
-                            <Box height={60} pX={20} pY={8} direction='row'>
-                                <Box flex={1} direction='row'>
-                                    <TouchableOpacity onPress={() => drawer.current.openDrawer()}>
-                                        <Box pA={10} bg='white' height={40}>
-                                            <Text font='bold'>{chapter.episode}/{chapters.length}</Text>
-                                        </Box>
-                                    </TouchableOpacity>
-
-                                    <Box width={8} />
-                                    
-                                    <TouchableOpacity onPress={onThemeChange}>
-                                        <Box pA={10} bg='white' height={40}>
-                                            {
-                                                colorTheme == true ? 
-                                                (<MaterialCommunityIcons name="brightness-2" size={22} color="black" />) 
-                                                : 
-                                                (<MaterialCommunityIcons name="brightness-5" size={22} color="black" />) 
-                                            }
-                                        </Box>
-                                    </TouchableOpacity>
-                                </Box>
-                                {/* <Box>
-                                    <Text>{readDetail.text}</Text>
-                                </Box> */}
-                                <Box direction='row' jc='end'>
-                                    <TouchableOpacity onPress={() => setFontSize(fontSize / 1.2)}>
-                                        <Box height={40} width={40} bg='white' jc='center' align='center'>
-                                            <Text font='bold'>A-</Text>
-                                        </Box>
-                                    </TouchableOpacity>
-                                    <Box width={8}/>
-                                    
-                                    <TouchableOpacity onPress={() => setFontSize(fontSize * 1.2)}>
-                                        <Box height={40} width={40} bg='white' jc='center' align='center'>
-                                            <Text font='bold'>A+</Text>
-                                        </Box>
-                                    </TouchableOpacity>
-                                </Box>
+                            {/* <Box>
+                                <Text>{readDetail.text}</Text>
+                            </Box> */}
+                            <Box direction='row' jc='end'>
+                                <TouchableOpacity onPress={() => setFontSize(fontSize / 1.2)}>
+                                    <Box height={40} width={40} bg='white' jc='center' align='center'>
+                                        <Text font='bold'>A-</Text>
+                                    </Box>
+                                </TouchableOpacity>
+                                <Box width={8}/>
+                                
+                                <TouchableOpacity onPress={() => setFontSize(fontSize * 1.2)}>
+                                    <Box height={40} width={40} bg='white' jc='center' align='center'>
+                                        <Text font='bold'>A+</Text>
+                                    </Box>
+                                </TouchableOpacity>
                             </Box>
                         </Box>
                     </Box>

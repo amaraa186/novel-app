@@ -3,17 +3,18 @@ import { Image, TouchableOpacity, ScrollView, View, ActivityIndicator } from 're
 import { Picker } from '@react-native-picker/picker'
 import { Box } from '../../components'
 import NovelItem from './NovelItem'
-import { fetchFilter } from './NovelApi'
+import { fetchFilter, fetchUserNovels } from './NovelApi'
 import { fetchCategories } from './CategoryApi'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import _ from 'lodash'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const NovelList = (props) => {
     const [pickedCategory, setPickedCategory] = useState('ALL')
     const [novels, setNovels] = useState([])
     const [categories, setCategories] = useState([])
     const [fetching, setFetching] = useState(false)
+    const [user, setUser] = useState({})
 
     const onNovelPressed = (id) => {
         props.navigation.navigate('NovelDetail', {
@@ -26,8 +27,42 @@ const NovelList = (props) => {
     }, [])
 
     useEffect(() => {
+        checkBookmarks()
+    }, [user])
+
+    useEffect(() => {
+        onGetUserID()
+    }, [])
+
+    const onGetUserID = async () => {
+        try {
+            setFetching(true)
+            let userData = await AsyncStorage.getItem('user')
+
+            if(!_.isEmpty(userData))
+                setUser(JSON.parse(userData))
+
+            setFetching(false)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
         getSearched()
     }, [pickedCategory])
+
+    const checkBookmarks = () => {
+        setFetching(true)
+        fetchUserNovels(user._id)
+        .then((res) => {
+            if(res.data.code == 0){
+                // alert(res.data.bookmark)
+                // _.difference(res.data.bookmark.novel, )
+            }
+        }).catch((err) => console.log(err))
+        .then(() => setFetching(false))
+    }
 
     const getCategories = () => {
         setFetching(true)
@@ -49,30 +84,13 @@ const NovelList = (props) => {
         }).catch((err) => console.log(err))
     }
 
-    const onBookMark = async (id) => {
-        try {
-            let value = await AsyncStorage.getItem(`@bookmark`)
-            let parseA = JSON.parse(value);
-            if(parseA.length == 0 || parseA == null){
-                alert('A')
-                let array = [id]
-                return AsyncStorage.setItem(`@bookmark`, JSON.stringify(array))
-            }
-            let findArray = parseA.find(find => find == id)
-
-            if(_.isEmpty(findArray) == true){
-                parseA.push(id)
-                AsyncStorage.setItem(`@bookmark`, JSON.stringify(parseA))
-            } else {
-                let filteredArray = parseA.filter(pa => pa != id)
-                AsyncStorage.setItem(`@bookmark`, JSON.stringify(filteredArray))
-            }
-            
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
+    if(fetching == true){
+        return (
+            <Box align='center' jc='center' flex={1}>
+                <ActivityIndicator />
+            </Box>
+        )
+    } 
     return (
         <Box mB={45}>
             <Box pY={4} pX={4} direction='row' align='center'>
@@ -98,15 +116,10 @@ const NovelList = (props) => {
             }}>
                 <Box flex={1} pY={4} pX={4}>
                     {
-                        fetching == true ? (
-                        <View style={{alignContent: 'center', justifyContent: 'center', flex: 1}}>
-                            <ActivityIndicator />
-                        </View> ) : 
                         novels.map((novel, i) => (
                             <NovelItem 
                                 novel={novel}
                                 onPress={onNovelPressed}
-                                onBookMark={onBookMark}
                             />
                         ))
                     }

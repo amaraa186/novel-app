@@ -64,7 +64,7 @@ const SignupPage = (props) => {
                 const { user, token } = res.data
 
                 try {
-                    AsyncStorage.setItem('token', token);
+                    AsyncStorage.setItem('token', JSON.stringify(token));
                     AsyncStorage.setItem("user", JSON.stringify(user))
                     Toast.show({
                         type: 'success',

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ScrollView, View, Image, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { Box, Text } from '../../components'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { fetchBookmarkedNovels } from './BookmarkApi'
 
@@ -22,25 +21,16 @@ const BookmarkView = (props) => {
     const onBack = () => props.navigation.goBack()
 
     const getNovels = async () => {
-        try {
-            let value = await AsyncStorage.getItem('@bookmark')
-            let mainValue = JSON.parse(value)
+        setFetching(true)
 
-            if(mainValue.length != 0){
-                setFetching(true)
-
-                fetchBookmarkedNovels(mainValue)
-                .then((res) => {
-                    if(res.data.code == 0) {
-                        setNovels(res.data.novels)
-                    }
-                }).catch((err) => console.log(err))
-                .then(() => setFetching(false))
+        fetchBookmarkedNovels(props.route.params._id)
+        .then((res) => {
+            if(res.data.code == 0) {
+                alert(res.data.bookmark.novel)
             }
-
-        } catch (error) {
-            console.log(error)
-        }
+            console.log(res.data)
+        }).catch((err) => console.log(err))
+        .then(() => setFetching(false))
     }
 
     if(fetching == true){

@@ -3,8 +3,6 @@ import {
 } from '../../../utils/api'
 
 
-export async function fetchBookmarkedNovels(params) {
-    return await request().get('/bookmark/bookmarked_books', {
-        params
-    })
+export async function fetchBookmarkedNovels(id) {
+    return await request().get('/bookmark/' + id)
 }

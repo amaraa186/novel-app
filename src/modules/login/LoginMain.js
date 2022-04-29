@@ -1,14 +1,36 @@
-import React, { useState } from 'react'
-import { Image, TouchableOpacity } from 'react-native'
+import React, { useState, useEffect, useContext } from 'react'
+import { Image, TouchableOpacity, View } from 'react-native'
 import { Box, Text } from '../../components'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import _ from 'lodash'
+import UserContext from '../../context/UserContext';
 
 const LoginMain = (props) => {
+
     const onPressLogin = () => {
         props.navigation.navigate('LoginPage')    
     }
 
     const onPressSignUp = () => {
         props.navigation.navigate('SignupPage')
+    }
+
+    const state = useContext(UserContext)
+
+    // useEffect(() => {
+
+    //     setFetching(true)
+    //     const isLogged = useContext(UserContext)
+
+    //     if(isLogged == true)
+    //         props.navigation.navigate('Home')
+
+    //     setFetching(false)
+
+    // }, [])
+
+    if(state.isLogged == true){
+        props.navigation.navigate('Home')
     }
 
     return (

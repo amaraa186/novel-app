@@ -1,16 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { TextInput, TouchableOpacity } from 'react-native'
 import { Box, Text } from '../../components'
 import { loginHandler } from './AuthApi'
 import _ from 'lodash'
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import UserContext from '../../context/UserContext'
 
 const LoginPage = (props) => {
 
     const onSignup = () => {
         props.navigation.navigate('SignupPage')
     }
+
+    const state = useContext(UserContext)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -30,32 +33,7 @@ const LoginPage = (props) => {
                 text2: 'Нууц үгээ оруулна уу'
             });
 
-        loginHandler({
-            email,
-            password
-        })
-        .then((res) => {
-            if(res.data.code != 0){
-                return Toast.show({
-                    type: 'error',
-                    text1: 'Алдаа',
-                    text2: res.data.data
-                });
-            }
-
-            if(res.data.code == 0){
-                const { user, token } = res.data;
-
-                try {
-                    AsyncStorage.setItem('token', token);
-                    AsyncStorage.setItem("user", JSON.stringify(user))
-                
-                    return props.navigation.navigate('Home')
-                } catch (err) {
-                    console.log(err)
-                }
-            }
-        }).catch((err) => console.log(err))
+        state.login(email, password)
     }
 
     return (

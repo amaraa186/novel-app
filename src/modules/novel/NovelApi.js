@@ -27,3 +27,13 @@ export async function fetchPopularNovels() {
 export async function fetchNovel(id) {
     return await request().get(`/novel/${id}`)
 }
+
+export async function novelBookmark(params) {
+    return await request().post('/bookmark/', {
+        params
+    })
+}
+
+export async function fetchUserNovels(id) {
+    return await request().get('/bookmark/' + id)
+}

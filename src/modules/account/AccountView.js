@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Box, Text } from '../../components'
 import { TouchableOpacity, Image, View, ActivityIndicator } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -10,6 +10,8 @@ const AccountView = (props) => {
     const { navigation } = props
     const [user, setUser] = useState()
 
+    
+
     useEffect(() => {
         getData()
     }, [])
@@ -17,14 +19,22 @@ const AccountView = (props) => {
     const getData = async () => {
         try {
             let userdata = await AsyncStorage.getItem('user')
-            setUser(JSON.parse(userdata))
+
+            if(!_.isEmpty(userdata))
+                setUser(JSON.parse(userdata))
+
         } catch (err) {
             console.log(err)
         }
     }
 
     const onBookmarkPress = () => {
-        navigation.navigate({name: 'Bookmark'})
+        navigation.navigate({
+            name: 'Bookmark',
+            params: {
+                _id: user._id,
+            }
+        })
     }
 
     if(_.isEmpty(user)){

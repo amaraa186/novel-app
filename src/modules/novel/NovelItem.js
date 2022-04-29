@@ -5,9 +5,10 @@ import { Rating } from 'react-native-ratings';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import _ from 'lodash'
+import { novelBookmark } from './NovelApi'
 
 const NovelItem = (props) => {
-    const { novel, onPress = () => {}, onBookMark = () => {} } = props
+    const { novel, onPress = () => {} } = props
     const [bookmark, setBookmark] = useState(false)
     const [fetching, setFetching] = useState(false)
 
@@ -17,7 +18,6 @@ const NovelItem = (props) => {
 
     const changeBookMark = (id) => {
         setBookmark(!bookmark)
-        onBookMark(id)
     }
 
     const matchBookMark = async () => {
