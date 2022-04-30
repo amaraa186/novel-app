@@ -53,7 +53,7 @@ const BookmarkView = (props) => {
                     <Box direction='row' style={{flexWrap: 'wrap'}}>
                         {
                             novels.map((novel, i) => (
-                                <TouchableOpacity onPress={() => onNovelPressed(novel._id)}>
+                                <TouchableOpacity onPress={() => onNovelPressed(novel._id)} key={i}>
                                     <Box pY={10} pX={6}>
                                         <Box width={115} height={160}>
                                             <Image

@@ -92,6 +92,7 @@ const ChapterDetail = (props) => {
         .then((res) => {
             if(res.data.code == 0){
                 setChapter(res.data.chapter)
+                // console.log(res.data.chapter)
             }
         }).catch((err) => console.log(err))
         .then(() => setFetching(false))
@@ -125,7 +126,7 @@ const ChapterDetail = (props) => {
             <ScrollView>
             {
                 chapters.map((chapter, i) => (
-                    <TouchableOpacity onPress={() => onchapterPressed(chapter._id)}>
+                    <TouchableOpacity onPress={() => onchapterPressed(chapter._id)} key={i}>
                         <Box pY={8}>
                             <Text align='center'>Бүлэг {chapter.episode} - {chapter.title}</Text>
                         </Box>
@@ -135,7 +136,7 @@ const ChapterDetail = (props) => {
             </ScrollView>
         </Box>
     )
-    if(fetching == true || _.isEmpty(chapter)){
+    if(fetching == true){
         return (
             <View style={{alignContent: 'center', justifyContent: 'center', flex: 1}}>
                 <ActivityIndicator />
@@ -160,15 +161,10 @@ const ChapterDetail = (props) => {
                         </Box>
                     </View>
                     <ScrollView contentContainerStyle={{
-                        padding: 20
+                        padding: 15
                     }} style={{backgroundColor: colorTheme == true ? "white" : "#212129"}}>
-                        <Box>
-                            <Text align='center' color={colorTheme == true ? "black" : "white"}>Бүлэг - {chapter.episode}</Text>
-                        </Box>
-                        <Box>
-                            <Text h2 align='center' font='bold' color={colorTheme == true ? "black" : "white"}>{chapter.title}</Text>
-                        </Box>
-                    
+                        <Text align='center' color={colorTheme == true ? "black" : "white"}>Бүлэг - {chapter.episode}</Text>
+                        <Text h2 align='center' font='bold' color={colorTheme == true ? "black" : "white"}>{chapter.title}</Text>
                         <Text lineHeight={fontSize * 2} size={fontSize} align='justify' color={colorTheme == true ? "black" : "white"}>{chapter.content}</Text>
                     </ScrollView>
 

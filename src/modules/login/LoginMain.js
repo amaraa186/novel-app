@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Image, TouchableOpacity, View } from 'react-native'
+import { Image, TouchableOpacity, View, ActivityIndicator } from 'react-native'
 import { Box, Text } from '../../components'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import _ from 'lodash'
@@ -17,21 +17,7 @@ const LoginMain = (props) => {
 
     const state = useContext(UserContext)
 
-    // useEffect(() => {
-
-    //     setFetching(true)
-    //     const isLogged = useContext(UserContext)
-
-    //     if(isLogged == true)
-    //         props.navigation.navigate('Home')
-
-    //     setFetching(false)
-
-    // }, [])
-
-    if(state.isLogged == true){
-        props.navigation.navigate('Home')
-    }
+    state.isLogged == true && props.navigation.navigate('Home')
 
     return (
         <Box flex={1} jc='center' align='center'>

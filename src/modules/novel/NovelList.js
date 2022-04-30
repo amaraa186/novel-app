@@ -106,7 +106,7 @@ const NovelList = (props) => {
                     <Picker.Item label='Бүгд' value='ALL' />
                     {
                         categories.map((category, i) => (
-                            <Picker.Item label={category.title} value={category.title} />
+                            <Picker.Item label={category.title} value={category.title} key={i} />
                         ))
                     }
                 </Picker>
@@ -118,6 +118,7 @@ const NovelList = (props) => {
                     {
                         novels.map((novel, i) => (
                             <NovelItem 
+                                key={i}
                                 novel={novel}
                                 onPress={onNovelPressed}
                             />

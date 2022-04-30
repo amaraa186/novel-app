@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Box, Text } from '../../components'
 import { TextInput, TouchableOpacity } from 'react-native'
 import Toast from 'react-native-toast-message';
 import _ from 'lodash'
 import { signupHandler } from './AuthApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import UserContext from '../../context/UserContext';
 
 const SignupPage = (props) => {
 
@@ -12,6 +13,8 @@ const SignupPage = (props) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [password1, setPassword1] = useState('')
+
+    const state = useContext(UserContext)
 
     const onLogin = () => {
         props.navigation.navigate('LoginPage')
@@ -46,44 +49,7 @@ const SignupPage = (props) => {
                 text2: 'Нууц үгийн талбарыг бөглөнө үү'
               });
         
-        signupHandler({
-            username,
-            email,
-            password
-        })
-        .then((res) => {
-            if(res.data.code != 0){
-                return Toast.show({
-                    type: 'error',
-                    text1: 'Алдаа',
-                    text2: 'Бүртгэлтэй имэйл хаяг байна'
-                  });
-            }
-
-            if(res.data.code == 0){
-                const { user, token } = res.data
-
-                try {
-                    AsyncStorage.setItem('token', JSON.stringify(token));
-                    AsyncStorage.setItem("user", JSON.stringify(user))
-                    Toast.show({
-                        type: 'success',
-                        text1: 'Баяр хүргэе',
-                        text2: 'Та амжилттай бүртгүүллээ'
-                    });
-                    return props.navigation.navigate('Home')
-                } catch (err) {
-                    console.log(err)
-                }
-            }
-
-            return Toast.show({
-                type: 'error',
-                text1: 'Алдаа',
-                text2: 'Нууц үг эсвэл имэйл хаяг буруу байна.'
-              });
-
-        }).catch((err) => console.log(err))
+        state.signup(email, username, password)
     }
 
     return (

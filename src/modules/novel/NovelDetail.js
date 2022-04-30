@@ -111,8 +111,8 @@ const NovelDetail = (props) => {
                     </Box>
                     <Box direction='row' pY={12} pX={12} flex={1} style={{ flexWrap: 'wrap' }}>
                         {
-                            novel.categories.map(tag => (
-                                <Box pY={3} pX={3}>
+                            novel.categories.map((tag, i) => (
+                                <Box pY={3} pX={3} key={i}>
                                     <TouchableOpacity>
                                         <Box pY={5} pX={5} bg='waterBlue' bR={5}>
                                             <Text size={12} align='center'>

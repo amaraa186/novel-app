@@ -32,9 +32,9 @@ const HomeView = (props) => {
     }
 
     return (
-        <Box flex={1} bg='white' insetsTop pX={10}>
+        <Box flex={1} bg='white' pX={10}>
             <ScrollView contentContainerStyle={{
-                paddingBottom: 60
+                paddingBottom: 20
             }}>
                 <Box pX={8} bg='white'>
                     <Box pX={8} mT={20} mB={12}>

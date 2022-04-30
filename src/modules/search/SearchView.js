@@ -47,6 +47,7 @@ const SearchView = (props) => {
                 {
                     novels.map((novel, i) => (
                         <SearchItem 
+                            key={i}
                             novel={novel}
                             onPress={onNovelPressed}
                         />
