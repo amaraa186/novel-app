@@ -13,7 +13,8 @@ const NovelList = (props) => {
     const [novels, setNovels] = useState([])
     const [categories, setCategories] = useState([])
     const [fetching, setFetching] = useState(false)
-    const [user, setUser] = useState({})
+    const [page, setPage] = useState(1)
+    const [pages, setPages] = useState(1)
 
     const onNovelPressed = (id) => {
         props.navigation.navigate('NovelDetail', {
@@ -42,10 +43,12 @@ const NovelList = (props) => {
 
     const getSearched = () => {
         setFetching(true)
-        fetchFilter(pickedCategory)
+        fetchFilter({search_value: pickedCategory})
         .then((res) => {
             if(res.data.code == 0) {
                 setNovels(res.data.novels.docs)
+                setPages(res.data.novels.pages)
+                setPage(res.data.novels.page)
             }
         }).catch((err) => console.log(err))
         .then(() => setFetching(false))
@@ -58,6 +61,19 @@ const NovelList = (props) => {
                 onPress={onNovelPressed}
             />
         )
+    }
+
+    const onLoadMore = () => {
+        if(page + 1 <= pages){
+            fetchFilter({ search_value: pickedCategory, page: page + 1 })
+            .then((res) => {
+                if(res.data.code == 0) {
+                    setNovels(novels.concat(res.data.novels.docs))
+                    setPages(res.data.novels.pages)
+                    setPage(res.data.novels.page)
+                }
+            }).catch((err) => console.log(err))
+        }
     }
 
     if(fetching == true){
@@ -91,6 +107,8 @@ const NovelList = (props) => {
                 keyExtractor={(item, index) => index}
                 data={novels}
                 renderItem={renderNovel}
+                onEndReachedThreshold={0.3}
+                onEndReached={onLoadMore}
                 ItemSeparatorComponent={() => <Box height={12} />}
             />
         </Box>

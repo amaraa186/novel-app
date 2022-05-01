@@ -110,7 +110,7 @@ const ChapterDetail = (props) => {
     }
 
     const preChapter = (episode) => {
-        let findChapter = chapters.find(chapter => chapter.episode < episode)
+        let findChapter = chapters.find(chapter => chapter.episode == episode - 1)
         onchapterPressed(findChapter._id)
     }
 

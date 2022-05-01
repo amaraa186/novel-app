@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { TextInput, FlatList, ActivityIndicator } from 'react-native'
+import { TextInput, FlatList, ActivityIndicator, View, TouchableOpacity } from 'react-native'
 import { Box, Text } from '../../components'
 import NovelItem from '../novel/NovelItem'
 import { fetchSearch } from '../novel/NovelApi'
@@ -48,8 +48,17 @@ const SearchView = (props) => {
         )
     }
 
-    const handleLoadMore = () => {
-        setPage(2)
+    const onLoadMore = () => {
+        if(page + 1 <= pages){
+            fetchSearch({ search_value: value, page: page + 1 })
+            .then((res) => {
+                if(res.data.code == 0) {
+                    setNovels(novels.concat(res.data.novels.docs))
+                    setPages(res.data.novels.pages)
+                    setPage(res.data.novels.page)
+                }
+            }).catch((err) => console.log(err))
+        }
     }
 
     if(fetching == true){
@@ -73,7 +82,8 @@ const SearchView = (props) => {
                 keyExtractor={(item, index) => index}
                 data={novels}
                 renderItem={renderNovel}
-                onEndReached={handleLoadMore}
+                onEndReachedThreshold={0.3}
+                onEndReached={onLoadMore}
                 ItemSeparatorComponent={() => <Box height={12} />}
             />
         </Box>
