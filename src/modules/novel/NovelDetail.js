@@ -1,15 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { ScrollView, Image, TouchableOpacity, ActivityIndicator, View } from 'react-native'
 import { Box, Text } from '../../components'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
-import { fetchNovel } from './NovelApi';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { fetchNovel, fetchNovelFirstChapter, novelBookmark } from './NovelApi';
+import { checkNovelBookmark } from '../bookmark/BookmarkApi'
 import _ from 'lodash'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import UserContext from '../../context/UserContext'
 
 const NovelDetail = (props) => {
+    const state = useContext(UserContext)
     const [novel, setNovel] = useState({})
     const [fetching, setFetching] = useState(false)
+    const [bookmark, setBookmark] = useState(false)
 
     const onBack = () => props.navigation.goBack()
 
@@ -27,6 +31,19 @@ const NovelDetail = (props) => {
         getNovel()
     }, [])
 
+    useEffect(() => {
+        oncheckBookmark()
+    }, [])
+
+    const oncheckBookmark = () => {
+        checkNovelBookmark({user: state.user._id, novel: props.route.params._id})
+        .then((res) => {
+            if(res.data.code == 0) {
+                return res.data.value == null ? setBookmark(false) : setBookmark(true);
+            }
+        }).catch((err) => console.log(err))
+    }
+
     const getNovel = () => {
         setFetching(true)
 
@@ -40,17 +57,55 @@ const NovelDetail = (props) => {
     }
 
     const onReadChapter = async () => {
-        try {
-            let value = await AsyncStorage.getItem(`@${novel.title}`)
-            if(value == null)
-                return Toast.show({
-                    type: 'error',
-                    text1: 'Алдаа',
-                    text2: 'Одоогоор бүлэг нэмэгдээгүй байна.'
-                  });
-            onchapterPressed(JSON.parse(value))
-        } catch (error) {
-            console.log(error)
+
+        if(state.isLogged == true){
+            try {
+                let value = await AsyncStorage.getItem(`@${novel.title}`)
+                if(value == null){
+                    fetchNovelFirstChapter(props.route.params._id)
+                    .then((res) => {
+
+                        if(res.data.code != 0){
+                            return Toast.show({
+                                type: 'error',
+                                text1: 'Алдаа',
+                                text2: res.data.content
+                            }); 
+                        }
+
+                        return onchapterPressed(res.data.firstChapter._id)
+
+                    }).catch((err) => console.log(err))
+                    
+                } else {
+                    return onchapterPressed(JSON.parse(value))
+                }
+    
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            props.navigation.navigate('LoginMain')
+        }
+    }
+
+    const onBookmark = (id, uId) => {
+        if(state.isLogged == true){
+            novelBookmark({
+                novel_id: id,
+                user_id: uId
+            })
+            .then((res) => {
+                if(res.data.code == 0){
+                    if(res.data.value == null){
+                       return setBookmark(false)
+                    } else {
+                       return setBookmark(true)
+                    }
+                }
+            })
+        } else {
+            props.navigation.navigate('LoginMain')
         }
     }
 
@@ -70,8 +125,8 @@ const NovelDetail = (props) => {
                         <TouchableOpacity onPress={onBack}>
                             <MaterialCommunityIcons name='chevron-left' size={22} color='black'/>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => onBookmark(novel._id)}>
-                            <MaterialCommunityIcons name='bookmark-outline' size={22} color='black'/>
+                        <TouchableOpacity onPress={() => onBookmark(novel._id, state.user._id)}>
+                            <MaterialCommunityIcons name={bookmark == false ? 'heart-outline' : 'heart'} size={22} color={bookmark == false ? 'black' : 'red'}/>
                         </TouchableOpacity>
                     </Box>
                     <Box>
@@ -112,14 +167,10 @@ const NovelDetail = (props) => {
                     <Box direction='row' pY={12} pX={12} flex={1} style={{ flexWrap: 'wrap' }}>
                         {
                             novel.categories.map((tag, i) => (
-                                <Box pY={3} pX={3} key={i}>
-                                    <TouchableOpacity>
-                                        <Box pY={5} pX={5} bg='waterBlue' bR={5}>
-                                            <Text size={12} align='center'>
-                                                {tag.title}
-                                            </Text>
-                                        </Box>
-                                    </TouchableOpacity>
+                                <Box pY={5} pX={5} bg='waterBlue' bR={5} key={i} mR={6} mB={6}>
+                                    <Text size={12} align='center'>
+                                        {tag.title}
+                                    </Text>
                                 </Box>
                             ))
                         }

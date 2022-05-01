@@ -16,18 +16,21 @@ const AccountView = (props) => {
         navigation.navigate({
             name: 'Bookmark',
             params: {
-                _id: user._id,
+                _id: state.user._id,
             }
         })
     }
 
-    if(_.isEmpty(state.user)){
-        return (
-            <View style={{alignContent: 'center', justifyContent: 'center', flex: 1}}>
-                <ActivityIndicator />
-            </View>
-        )
+    const onClickButton = () => {
+        
+        if(state.isLogged == true) {
+           return state.logout()
+        }
+
+        return navigation.navigate('LoginMain')
+
     }
+
     return (
         <Box flex={1} insetsTop insetsBottom>
             <Box bg='red' pY={12} pX={6} flex={1} jc='center' align='center'>
@@ -45,7 +48,11 @@ const AccountView = (props) => {
                     />
                 </Box>
                 <Box pY={6} />
-                <Text color='white'>{state.user.username}</Text>
+                {
+                    state.isLogged == true && state.user.username != null && (
+                        <Text color='white'>{state.user.username}</Text>
+                    )
+                }
             </Box>
             <Box flex={1} jc='between'>
                 <Box>
@@ -61,9 +68,9 @@ const AccountView = (props) => {
                     </TouchableOpacity>
                 </Box>
                 <Box pY={12} pX={12}>
-                    <TouchableOpacity onPress={() => state.logout()}>
+                    <TouchableOpacity onPress={onClickButton}>
                         <Box bg='red' pX={12} pY={10} bR={12}>
-                            <Text color='white' font='bold' align='center' h3>Гарах</Text>
+                            <Text color='white' font='bold' align='center' h3>{state.isLogged == true ? 'Гарах' : 'Нэвтрэх'}</Text>
                         </Box>
                     </TouchableOpacity>
                 </Box>

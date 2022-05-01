@@ -6,10 +6,10 @@ const ChapterItem = (props) => {
     const { chapter, onPress = () => {} } = props
 
     return (
-        <Box pX={8}>
+        <Box pX={6} bg='white' bR={20} pY={6}>
             <TouchableOpacity style={{ flex: 1 }} onPress={() => onPress(chapter._id)}>
-                <Box direction='row' bR={20}>
-                    <Box height={130} width={90} bR={20}>
+                <Box direction='row'>
+                    <Box height={120} width={90} bR={20}>
                         <Image 
                             source={{
                                 uri: chapter.novel.cover_url,

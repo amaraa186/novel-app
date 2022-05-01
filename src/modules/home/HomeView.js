@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { ScrollView } from 'react-native'
 import { Box, Text } from '../../components'
 
 import ChapterList from '../chapter/ChapterList'
 import FeaturedNovels from '../novel/FeaturedNovels'
-
+import UserContext from '../../context/UserContext'
 import NovelSwiperList from '../novel/NovelSwiperList'
 
 const HomeView = (props) => {
 
     const { navigation } = props
+    const state = useContext(UserContext)
 
     const onchapterPressed = (id) => {
+        if(state.isLogged == false){
+            return navigation.navigate('LoginMain')
+        }
+
         navigation.navigate({
             name: 'ChapterDetail',
             params: {
@@ -32,11 +37,11 @@ const HomeView = (props) => {
     }
 
     return (
-        <Box flex={1} bg='white' pX={10}>
+        <Box flex={1} pX={10}>
             <ScrollView contentContainerStyle={{
                 paddingBottom: 20
             }}>
-                <Box pX={8} bg='white'>
+                <Box pX={8}>
                     <Box pX={8} mT={20} mB={12}>
                         <Text h2 font='bold'>Оюуны алжаалаа тайл</Text>
                     </Box>

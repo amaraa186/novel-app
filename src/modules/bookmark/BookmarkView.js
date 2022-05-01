@@ -26,9 +26,8 @@ const BookmarkView = (props) => {
         fetchBookmarkedNovels(props.route.params._id)
         .then((res) => {
             if(res.data.code == 0) {
-                alert(res.data.bookmark.novel)
+                setNovels(res.data.bookmarks.docs[0].novel)
             }
-            console.log(res.data)
         }).catch((err) => console.log(err))
         .then(() => setFetching(false))
     }

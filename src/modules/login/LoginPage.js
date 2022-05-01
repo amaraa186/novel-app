@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react'
 import { TextInput, TouchableOpacity } from 'react-native'
 import { Box, Text } from '../../components'
-import { loginHandler } from './AuthApi'
 import _ from 'lodash'
 import Toast from 'react-native-toast-message';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import UserContext from '../../context/UserContext'
 
 const LoginPage = (props) => {
@@ -36,8 +35,19 @@ const LoginPage = (props) => {
         state.login(email, password)
     }
 
+    const onClose = () => {
+        props.navigation.navigate('Home')
+    }
+
     return (
-        <Box insertsTop align='center' jc='evenly' flex={1} insertsBottom>
+        <Box jc='evenly' flex={1}>
+            <Box style={{ position: 'absolute', top: 15, right: 0, zIndex: 2 }}>
+                <Box direction='row' jc='end' pX={20}>
+                    <TouchableOpacity onPress={onClose}>
+                        <MaterialCommunityIcons name="close" size={22} color="black" />
+                    </TouchableOpacity>
+                </Box>
+            </Box>
             <Box align='center'>
                 <Box jc='center'>
                     <Text h1 font='bold'>Нэвтрэх</Text>

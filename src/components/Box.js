@@ -133,7 +133,7 @@ const Box = (props) => {
 				},
 				shadowOpacity: 0.25,
 				shadowRadius: 1.84,
-				elevation: 2,
+				elevation: 4,
 			},
 			style && style
 		]}>

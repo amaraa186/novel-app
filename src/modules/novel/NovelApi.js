@@ -9,13 +9,13 @@ export async function fetchNovels() {
 }
 
 export async function fetchSearch(params) {
-    return await request().get('/novel/search/', {
+    return await request().get('/novel/search', {
         params
     })
 }
 
 export async function fetchFilter(params) {
-    return await request().get('/novel/filter/', {
+    return await request().get('/novel/filter', {
         params
     })
 }
@@ -29,11 +29,13 @@ export async function fetchNovel(id) {
 }
 
 export async function novelBookmark(params) {
-    return await request().post('/bookmark/', {
+    return await request().post('/bookmark', {
         params
     })
 }
 
-export async function fetchUserNovels(id) {
-    return await request().get('/bookmark/' + id)
+export async function fetchNovelFirstChapter(params) {
+    return await request().get('/novel/firstChapter', {
+        params
+    })
 }

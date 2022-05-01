@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Image, TouchableOpacity, ScrollView, View, ActivityIndicator } from 'react-native'
+import { TouchableOpacity, ScrollView, ActivityIndicator, FlatList } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import { Box } from '../../components'
 import NovelItem from './NovelItem'
@@ -7,7 +7,6 @@ import { fetchFilter, fetchUserNovels } from './NovelApi'
 import { fetchCategories } from './CategoryApi'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 import _ from 'lodash'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const NovelList = (props) => {
     const [pickedCategory, setPickedCategory] = useState('ALL')
@@ -27,42 +26,8 @@ const NovelList = (props) => {
     }, [])
 
     useEffect(() => {
-        checkBookmarks()
-    }, [user])
-
-    useEffect(() => {
-        onGetUserID()
-    }, [])
-
-    const onGetUserID = async () => {
-        try {
-            setFetching(true)
-            let userData = await AsyncStorage.getItem('user')
-
-            if(!_.isEmpty(userData))
-                setUser(JSON.parse(userData))
-
-            setFetching(false)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    useEffect(() => {
         getSearched()
     }, [pickedCategory])
-
-    const checkBookmarks = () => {
-        setFetching(true)
-        fetchUserNovels(user._id)
-        .then((res) => {
-            if(res.data.code == 0){
-                // alert(res.data.bookmark)
-                // _.difference(res.data.bookmark.novel, )
-            }
-        }).catch((err) => console.log(err))
-        .then(() => setFetching(false))
-    }
 
     const getCategories = () => {
         setFetching(true)
@@ -76,12 +41,23 @@ const NovelList = (props) => {
     }
 
     const getSearched = () => {
+        setFetching(true)
         fetchFilter(pickedCategory)
         .then((res) => {
             if(res.data.code == 0) {
-                setNovels(res.data.novels)
+                setNovels(res.data.novels.docs)
             }
         }).catch((err) => console.log(err))
+        .then(() => setFetching(false))
+    }
+
+    const renderNovel = ({item}) => {
+        return (
+            <NovelItem 
+                novel={item}
+                onPress={onNovelPressed}
+            />
+        )
     }
 
     if(fetching == true){
@@ -92,7 +68,7 @@ const NovelList = (props) => {
         )
     } 
     return (
-        <Box mB={45}>
+        <Box flex={1} pX={12}>
             <Box pY={4} pX={4} direction='row' align='center'>
                 <TouchableOpacity onPress={props.navigation.goBack}>
                     <MaterialCommunityIcons name='chevron-left' size={22} color='black' />
@@ -111,21 +87,12 @@ const NovelList = (props) => {
                     }
                 </Picker>
             </Box>
-            <ScrollView contentContainerStyle={{
-                padding: 10
-            }}>
-                <Box flex={1} pY={4} pX={4}>
-                    {
-                        novels.map((novel, i) => (
-                            <NovelItem 
-                                key={i}
-                                novel={novel}
-                                onPress={onNovelPressed}
-                            />
-                        ))
-                    }
-                </Box>
-            </ScrollView>
+            <FlatList 
+                keyExtractor={(item, index) => index}
+                data={novels}
+                renderItem={renderNovel}
+                ItemSeparatorComponent={() => <Box height={12} />}
+            />
         </Box>
     )
 }

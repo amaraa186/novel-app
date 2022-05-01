@@ -6,7 +6,6 @@ import { fetchRecentlyChapters } from "./ChapterApi"
 import ChapterItem from './ChapterItem'
 
 const ChapterList = (props) => {
-    const [fetching, setFetching] = useState(false)
     const [chapters, setChapters] = useState([])
 
     useEffect(() => {
@@ -33,7 +32,7 @@ const ChapterList = (props) => {
 
     return (
         <Box flex={1}>
-            <Box direction="row" pX={8} pY={15} jc='between' align='center'>
+            <Box direction="row" pX={8} pY={8} jc='between' align='center'>
                 <Box>
                     <Text h2>Сүүлд нэмэгдсэн</Text>
                 </Box>
@@ -48,7 +47,7 @@ const ChapterList = (props) => {
                 keyExtractor={(item, index) => index}
                 data={chapters}
                 renderItem={renderChapter}
-                ItemSeparatorComponent={() => <Box height={20} />}
+                ItemSeparatorComponent={() => <Box height={12} />}
             />
         </Box>
     )

@@ -22,6 +22,7 @@ export const UserStore = props => {
             if(!_.isEmpty(JSON.parse(value))){
                 setIsLogged(true)
                 setUser(JSON.parse(userdata))
+                setToken(JSON.parse(value))
             }
 
         } catch (error) {
@@ -71,7 +72,7 @@ export const UserStore = props => {
                         text1: 'Баяр хүргэе',
                         text2: 'Та амжилттай бүртгүүллээ'
                     });
-                    return props.navigation.navigate('Home')
+                    props.navigation.navigate('Home')
                 } catch (err) {
                     console.log(err)
                 }
@@ -110,7 +111,7 @@ export const UserStore = props => {
                     setIsLogged(true)
                     setUser(user)
                     setToken(token)
-                    return props.navigation.navigate('Home')
+                    props.navigation.navigate('Home')
                 } catch (err) {
                     console.log(err)
                 }

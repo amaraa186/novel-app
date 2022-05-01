@@ -3,8 +3,7 @@ import { Box, Text } from '../../components'
 import { TextInput, TouchableOpacity } from 'react-native'
 import Toast from 'react-native-toast-message';
 import _ from 'lodash'
-import { signupHandler } from './AuthApi';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import UserContext from '../../context/UserContext';
 
 const SignupPage = (props) => {
@@ -52,8 +51,19 @@ const SignupPage = (props) => {
         state.signup(email, username, password)
     }
 
+    const onClose = () => {
+        props.navigation.navigate('Home')
+    }
+
     return (
-        <Box insertsTop flex={1} insertsBottom jc='evenly'>
+        <Box flex={1} jc='evenly'>
+            <Box style={{ position: 'absolute', top: 15, right: 0, zIndex: 2 }}>
+                <Box direction='row' jc='end' pX={20}>
+                    <TouchableOpacity onPress={onClose}>
+                        <MaterialCommunityIcons name="close" size={22} color="black" />
+                    </TouchableOpacity>
+                </Box>
+            </Box>
             <Box align='center'>
                 <Box jc='center'>
                     <Text h1 font='bold'>Бүртгүүлэх</Text>
